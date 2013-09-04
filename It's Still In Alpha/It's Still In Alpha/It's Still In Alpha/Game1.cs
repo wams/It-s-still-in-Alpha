@@ -50,6 +50,8 @@ namespace It_s_Still_In_Alpha
 
             Content.RootDirectory = "Content";
 
+            Components.Add(new InputHandler(this));
+
             stateManager = new GameStateManager(this);
             Components.Add(stateManager);
 

@@ -36,11 +36,10 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.T))
+            if (InputHandler.KeyPressed(Keys.T))
             {
                 StateManager.PushState(GameRef.playScreen);
             }
-
             base.Update(gameTime);
         }
 
