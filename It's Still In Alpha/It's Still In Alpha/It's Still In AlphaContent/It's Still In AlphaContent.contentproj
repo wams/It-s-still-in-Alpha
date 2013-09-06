@@ -46,7 +46,20 @@
     <Folder Include="Fonts\" />
     <Folder Include="GUI\" />
     <Folder Include="Maps\" />
-    <Folder Include="Ships\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ships\player_ship.png">
+      <Name>player_ship</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tiles\wall_1x1.png">
+      <Name>wall_1x1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
