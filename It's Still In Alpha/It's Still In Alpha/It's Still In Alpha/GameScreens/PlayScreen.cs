@@ -19,7 +19,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         #region Map Region
 
         List<List<Tile>> tiles;
-        const int gridSize = 64;
+        const int gridSize = 96;
         #endregion
 
         #region Variables Region
@@ -45,7 +45,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                     Tile newTile = new Tile(new Rectangle(i, j, gridSize, gridSize), new Rectangle(i, j, gridSize, gridSize), GameRef.Content);
                     newTile.Type = 0;
 
-                    if (i == 0 || j == 0 || i == GameRef.screenRectangle.Width - gridSize || j == GameRef.screenRectangle.Height - gridSize)
+                    if (i == 0 || j == 0 || i >= GameRef.screenRectangle.Width - gridSize || j >= GameRef.screenRectangle.Height - gridSize)
                     {
                         newTile.Type = 1;
                     }
@@ -108,6 +108,12 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         public override void Update(GameTime gameTime)
         {
+            if (InputHandler.KeyReleased(Keys.Escape))
+            {
+                //switch to the title screen
+                StateManager.PushState(GameRef.titleScreen);
+            }
+
             foreach (List<Tile> tileRow in tiles)
             {
                 foreach (Tile tile in tileRow)

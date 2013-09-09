@@ -29,10 +29,10 @@ namespace It_s_Still_In_Alpha
 
         #region Screen Properties
 
-        const int screenWidth = 1280;
-        const int screenHeight = 720;
+        const int screenWidth = 96 * 20;
+        const int screenHeight = 96 * 12;
 
-        bool fullscreen = false;
+        bool fullscreen = true;
 
         public readonly Rectangle screenRectangle;
         
