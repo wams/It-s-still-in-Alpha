@@ -22,6 +22,13 @@ namespace It_s_Still_In_Alpha.GameScreens
         const int gridSize = 64;
         #endregion
 
+        #region Variables Region
+
+        Ship playerShip;
+        List<Ship> Ships;
+
+        #endregion
+
         #region Constructor Region
 
         public PlayScreen(Game game, GameStateManager manager)
@@ -34,11 +41,27 @@ namespace It_s_Still_In_Alpha.GameScreens
                 List<Tile> tileRow = new List<Tile>();
                 for (int j = 0; j <= GameRef.screenRectangle.Height; j += gridSize)
                 {
-                    Tile newTile = new Tile(new Rectangle(i, j, gridSize, gridSize), new Rectangle(i, j, gridSize, gridSize));
+                    
+                    Tile newTile = new Tile(new Rectangle(i, j, gridSize, gridSize), new Rectangle(i, j, gridSize, gridSize), GameRef.Content);
+                    newTile.Type = 0;
+
+                    if (i == 0 || j == 0 || i == GameRef.screenRectangle.Width - gridSize || j == GameRef.screenRectangle.Height - gridSize)
+                    {
+                        newTile.Type = 1;
+                    }
+                    //add tile image and type here
                     tileRow.Add(newTile);
                 }
                 tiles.Add(tileRow);
             }
+
+            playerShip = new Player(GameRef);
+            playerShip.Position = new Vector2(5, 3);
+            playerShip.SourceSize = gridSize;
+
+
+            Ships = new List<Ship>();
+            Ships.Add(playerShip);
 
         }
 
@@ -54,7 +77,29 @@ namespace It_s_Still_In_Alpha.GameScreens
             {
                 foreach (Tile tile in tileRow)
                 {
-                    tile.LoadContent(GameRef.GraphicsDevice);
+                    switch (tile.Type)
+                    {
+                        case 0:
+                            tile.LoadContent("empty_space");
+                            break;
+                        case 1:
+                            tile.LoadContent("wall_1x1");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            foreach (Ship ship in Ships)
+            {
+                if (ship is Player)
+                {
+                    ship.LoadContent("player_ship");
+                }
+                else
+                {
+                    ship.LoadContent("ghost_ship");
                 }
             }
 
@@ -71,6 +116,18 @@ namespace It_s_Still_In_Alpha.GameScreens
                 }
             }
 
+            foreach (Ship ship in Ships)
+            {
+                if (ship is Player)
+                {
+                    ship.Update(gameTime);
+                }
+                else
+                {
+                    ship.Update(gameTime);
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -78,11 +135,25 @@ namespace It_s_Still_In_Alpha.GameScreens
         {
             GameRef.spriteBatch.Begin();
 
+            GameRef.GraphicsDevice.Clear(Color.Black);
+
             foreach (List<Tile> tileRow in tiles)
             {
                 foreach (Tile tile in tileRow)
                 {
                     tile.Draw(GameRef.spriteBatch);
+                }
+            }
+
+            foreach (Ship ship in Ships)
+            {
+                if (ship is Player)
+                {
+                    ship.Draw(GameRef.spriteBatch);
+                }
+                else
+                {
+                    ship.Draw(GameRef.spriteBatch);
                 }
             }
 
