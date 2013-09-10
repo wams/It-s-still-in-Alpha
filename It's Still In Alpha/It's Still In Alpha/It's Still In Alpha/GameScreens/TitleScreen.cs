@@ -69,6 +69,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 "Start Game",
                 new Vector2(GameRef.screenRectangle.Center.X, GameRef.screenRectangle.Center.Y - 100),
                 Color.Black);
+
         }
         #endregion
 
