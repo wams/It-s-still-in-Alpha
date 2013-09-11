@@ -53,7 +53,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         public override void Draw(GameTime gameTime)
         {
             GameRef.spriteBatch.Begin();
-            GameRef.spriteBatch.GraphicsDevice.Clear(Color.Red);
+            GameRef.spriteBatch.GraphicsDevice.Clear(Color.Green);
             DrawText();
             base.Draw(gameTime);
             
@@ -64,7 +64,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         {
             GameRef.spriteBatch.DrawString(GameRef.titleFont,
                 "Game Title",
-                new Vector2(GameRef.screenRectangle.Center.X - 125, GameRef.screenRectangle.Center.Y - 200),
+                new Vector2(GameRef.screenRectangle.Center.X - 250, GameRef.screenRectangle.Center.Y - 200),
                 Color.Black);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont, 
                 "Resume (Press 1)", 
