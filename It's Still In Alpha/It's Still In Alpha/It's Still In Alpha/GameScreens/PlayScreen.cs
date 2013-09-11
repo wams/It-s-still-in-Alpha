@@ -139,45 +139,6 @@ namespace It_s_Still_In_Alpha.GameScreens
 
                     if (moveTime > maxMoveTime)
                     {
-                        switch (ship.Direction)
-                        {
-                            /*case Ship.Facing.Up:
-                                if (Position.Y > 0)
-                                {
-                                    if (tiles[(int)Position.X][(int)Position.Y - 1].Type == 0)
-                                    {
-                                        ship.Position = new Vector2(Position.X, Position.Y - 1);
-                                    }
-                                }
-                                break;
-                            case Ship.Facing.Down:
-                                if (Position.Y < tiles[0].Count - 1)
-                                {
-                                    if (tiles[(int)Position.X][(int)Position.Y + 1].Type == 0)
-                                    {
-                                        ship.Position = new Vector2(Position.X, Position.Y + 1);
-                                    }
-                                }
-                                break;
-                            case Ship.Facing.Left:
-                                if (Position.X > 0)
-                                {
-                                    if (tiles[(int)Position.X - 1][(int)Position.Y].Type == 0)
-                                    {
-                                        ship.Position = new Vector2(Position.X - 1, Position.Y);
-                                    }
-                                }
-                                break;
-                            case Ship.Facing.Right:
-                                if (Position.X < tiles.Count - 1)
-                                {
-                                    if (tiles[(int)Position.X + 1][(int)Position.Y].Type == 0)
-                                    {
-                                        ship.Position = new Vector2(Position.X + 1, Position.Y);
-                                    }
-                                }
-                                break;*/
-                        }
                         moveTime = 0;
                     }
                     else
