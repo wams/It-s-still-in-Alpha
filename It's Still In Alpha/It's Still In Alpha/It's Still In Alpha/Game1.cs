@@ -32,7 +32,7 @@ namespace It_s_Still_In_Alpha
         const int screenWidth = 96 * 20;
         const int screenHeight = 96 * 12;
 
-        bool fullscreen = true;
+        bool fullscreen = false;
 
         public readonly Rectangle screenRectangle;
 

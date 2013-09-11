@@ -141,7 +141,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                     {
                         switch (ship.Direction)
                         {
-                            case Ship.Facing.Up:
+                            /*case Ship.Facing.Up:
                                 if (Position.Y > 0)
                                 {
                                     if (tiles[(int)Position.X][(int)Position.Y - 1].Type == 0)
@@ -176,7 +176,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                                         ship.Position = new Vector2(Position.X + 1, Position.Y);
                                     }
                                 }
-                                break;
+                                break;*/
                         }
                         moveTime = 0;
                     }
