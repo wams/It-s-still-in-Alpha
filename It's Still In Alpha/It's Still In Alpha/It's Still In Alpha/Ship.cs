@@ -21,7 +21,7 @@ namespace It_s_Still_In_Alpha
 
         public enum Facing
         {
-            Up = 0, Right = 90, Down = 180, Left = 270
+             Right = 0, Up = 90, Left = 180, Down = 270 
         }
 
         #region Variables Region
@@ -39,13 +39,20 @@ namespace It_s_Still_In_Alpha
         public Vector2 Position
         {
             get { return position; }
-            set { position = value; }
+            set { position = new Vector2( value.X, value.Y ); }
         }
 
         public int SourceSize
         {
             get { return sourceSize; }
             set { sourceSize = value; }
+        }
+
+        double speed = 1.0;
+        public double Speed
+        {
+            get { return speed; }
+            set { speed = value; }
         }
 
         Facing direction;
@@ -63,6 +70,8 @@ namespace It_s_Still_In_Alpha
             get { return alive; }
             set { alive = value; }
         }
+
+        List<Ship> ghostShips = new List<Ship>();
 
         #endregion
 
@@ -96,15 +105,21 @@ namespace It_s_Still_In_Alpha
             frameIndex = currentFrame;
         }
 
-        public virtual void Update(GameTime gameTime) { }
+        public virtual void Update(GameTime gameTime) 
+        {
+            double distance = speed * (gameTime.ElapsedGameTime.Milliseconds / 1000.0);
+            double change_in_x = distance * Util.cos(Util.degreesToRadians((double)direction));
+            double change_in_y = - distance * Util.sin(Util.degreesToRadians((double)direction));
+            position.X += (float)change_in_x;
+            position.Y += (float)change_in_y;
+        }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(shipImage, new Rectangle((int)Position.X * SourceSize + shipImage.Bounds.Center.X, (int)Position.Y * SourceSize + shipImage.Bounds.Center.Y, SourceSize, SourceSize), null, Color.White, 
-                MathHelper.ToRadians((int)Direction), new Vector2(shipImage.Bounds.Center.X, shipImage.Bounds.Center.Y), SpriteEffects.None, 0);
+                MathHelper.ToRadians((int)Direction - 90), new Vector2(shipImage.Bounds.Center.X, shipImage.Bounds.Center.Y), SpriteEffects.None, 0);
         }
 
         #endregion
-
     }
 }

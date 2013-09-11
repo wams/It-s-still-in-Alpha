@@ -30,7 +30,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         protected override void LoadContent()
         {
             ContentManager Content = GameRef.Content;
-
+            GameRef.font = Content.Load<SpriteFont>("Fonts/myFont");
             base.LoadContent();
         }
 
@@ -53,9 +53,23 @@ namespace It_s_Still_In_Alpha.GameScreens
         {
             GameRef.spriteBatch.Begin();
             GameRef.spriteBatch.GraphicsDevice.Clear(Color.Red);
+            DrawText();
             base.Draw(gameTime);
-
+            
             GameRef.spriteBatch.End();
+        }
+        
+        public void DrawText()
+        {
+            GameRef.spriteBatch.DrawString(GameRef.font, 
+                "Resume", 
+                new Vector2(GameRef.screenRectangle.Center.X, GameRef.screenRectangle.Center.Y), 
+                Color.Black);
+            GameRef.spriteBatch.DrawString(GameRef.font,
+                "Start Game",
+                new Vector2(GameRef.screenRectangle.Center.X, GameRef.screenRectangle.Center.Y - 100),
+                Color.Black);
+
         }
         #endregion
 

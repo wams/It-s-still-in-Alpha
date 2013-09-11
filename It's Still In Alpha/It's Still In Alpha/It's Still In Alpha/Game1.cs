@@ -35,7 +35,9 @@ namespace It_s_Still_In_Alpha
         bool fullscreen = true;
 
         public readonly Rectangle screenRectangle;
-        
+
+        public SpriteFont font;
+
         #endregion
 
         public Game1()
@@ -49,6 +51,8 @@ namespace It_s_Still_In_Alpha
             screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
 
             Content.RootDirectory = "Content";
+
+            
 
             Components.Add(new InputHandler(this));
 
