@@ -39,7 +39,7 @@ namespace It_s_Still_In_Alpha
         public Vector2 Position
         {
             get { return position; }
-            set { position = value; }
+            set { position = new Vector2( value.X, value.Y ); }
         }
 
         public int SourceSize
@@ -70,6 +70,8 @@ namespace It_s_Still_In_Alpha
             get { return alive; }
             set { alive = value; }
         }
+
+        List<Ship> ghostShips = new List<Ship>();
 
         #endregion
 
@@ -114,32 +116,9 @@ namespace It_s_Still_In_Alpha
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(shipImage, new Rectangle((int)Position.X * SourceSize, (int)Position.Y * SourceSize, SourceSize, SourceSize), Color.White);
+            spriteBatch.Draw(shipImage, new Rectangle((int)position.X * SourceSize, (int)position.Y * SourceSize, SourceSize, SourceSize), Color.White);
         }
 
         #endregion
-
-        #region Input Functions
-        public void set_facing_right( GameTime time ) 
-        {
-            direction = Facing.Right;
-        }
-
-        public void set_facing_up(GameTime time)
-        {
-            direction = Facing.Up;
-        }
-
-        public void set_facing_left( GameTime time )
-        {
-            direction = Facing.Left;
-        }
-
-        public void set_facing_down(GameTime time)
-        {
-            direction = Facing.Down;
-        }
-        #endregion
-
     }
 }

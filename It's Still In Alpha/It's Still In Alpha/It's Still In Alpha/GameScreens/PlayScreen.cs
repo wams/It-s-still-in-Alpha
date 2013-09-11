@@ -24,7 +24,7 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         #region Variables Region
 
-        Ship playerShip;
+        Player playerShip;
         List<Ship> Ships;
 
         #endregion
@@ -110,12 +110,6 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         public override void Update(GameTime gameTime)
         {
-            if (InputHandler.KeyReleased(Keys.Escape))
-            {
-                //switch to the title screen
-               
-            }
-
             process_input(gameTime);
 
             foreach (List<Tile> tileRow in tiles)
