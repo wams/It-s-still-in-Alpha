@@ -36,7 +36,8 @@ namespace It_s_Still_In_Alpha
 
         public readonly Rectangle screenRectangle;
 
-        public SpriteFont font;
+        public SpriteFont titleFont;
+        public SpriteFont subtitleFont;
 
         #endregion
 

@@ -1,4 +1,5 @@
 Content\Ships\player_ship.xnb
 Content\Tiles\wall_1x1.xnb
 Content\Tiles\empty_space.xnb
-Content\Fonts\myFont.xnb
+Content\Fonts\subtitleFont.xnb
+Content\Fonts\titleFont.xnb
