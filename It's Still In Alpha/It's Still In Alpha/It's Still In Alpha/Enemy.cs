@@ -11,9 +11,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace It_s_Still_In_Alpha
 {
-    class Player : Ship
+    class Enemy : Ship
     {
-        public Player(Game1 gameRef)
+        public Enemy(Game1 gameRef)
             : base(gameRef)
         {
             Alive = true;
@@ -37,29 +37,6 @@ namespace It_s_Still_In_Alpha
 
         public override void Update(GameTime gameTime)
         {
-            if (Direction == Facing.Down || Direction == Facing.Up)
-            {
-                if (InputHandler.KeyPressed(Keys.Right))
-                {
-                    Direction = Facing.Right;
-                }
-                if (InputHandler.KeyPressed(Keys.Left))
-                {
-                    Direction = Facing.Left;
-                }
-            }
-            if (Direction == Facing.Left || Direction == Facing.Right)
-            {
-                if (InputHandler.KeyPressed(Keys.Up))
-                {
-                    Direction = Facing.Up;
-                }
-                if (InputHandler.KeyPressed(Keys.Down))
-                {
-                    Direction = Facing.Down;
-                }
-            }
-
             base.Update(gameTime);
         }
 

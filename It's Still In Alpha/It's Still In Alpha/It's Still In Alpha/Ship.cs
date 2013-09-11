@@ -100,7 +100,8 @@ namespace It_s_Still_In_Alpha
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(shipImage, new Rectangle((int)Position.X * SourceSize, (int)Position.Y * SourceSize, SourceSize, SourceSize), Color.White);
+            spriteBatch.Draw(shipImage, new Rectangle((int)Position.X * SourceSize + shipImage.Bounds.Center.X, (int)Position.Y * SourceSize + shipImage.Bounds.Center.Y, SourceSize, SourceSize), null, Color.White, 
+                MathHelper.ToRadians((int)Direction), new Vector2(shipImage.Bounds.Center.X, shipImage.Bounds.Center.Y), SpriteEffects.None, 0);
         }
 
         #endregion

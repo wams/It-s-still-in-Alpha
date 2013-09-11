@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enemy.cs" />
     <Compile Include="GameScreens\PlayScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
