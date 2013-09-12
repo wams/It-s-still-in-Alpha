@@ -30,27 +30,64 @@ namespace It_s_Still_In_Alpha.GameScreens
         protected override void LoadContent()
         {
             ContentManager Content = GameRef.Content;
-
+            GameRef.titleFont = Content.Load<SpriteFont>("Fonts/titleFont");
+            GameRef.subtitleFont = Content.Load<SpriteFont>("Fonts/subtitleFont");
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (InputHandler.KeyPressed(Keys.T))
+            if (InputHandler.KeyPressed(Keys.D1))
             {
-                StateManager.PushState(GameRef.playScreen);
+                StateManager.ChangeState(GameRef.playScreen);
             }
+
+            if (InputHandler.KeyReleased(Keys.Escape))
+            {
+                GameRef.Exit();
+            }
+
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
             GameRef.spriteBatch.Begin();
-            GameRef.spriteBatch.GraphicsDevice.Clear(Color.Red);
+            GameRef.spriteBatch.GraphicsDevice.Clear(Color.Green);
+            DrawText();
             base.Draw(gameTime);
-
+            
             GameRef.spriteBatch.End();
         }
+        
+        public void DrawText()
+        {
+            GameRef.spriteBatch.DrawString(GameRef.titleFont,
+                "Game Title",
+                new Vector2(GameRef.screenRectangle.Center.X - 250, GameRef.screenRectangle.Center.Y - 200),
+                Color.Black);
+            GameRef.spriteBatch.DrawString(GameRef.subtitleFont, 
+                "Resume (Press 1)", 
+                new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y), 
+                Color.Black);
+            GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
+                "Start Game (Press 2)",
+                new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 75),
+                Color.Black);
+            GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
+                "Save (Press 3)",
+                new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 150),
+                Color.Black);
+            GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
+                "Load (Press 4)",
+                new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 225),
+                Color.Black);
+            GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
+                "Exit Game (Esc)",
+                new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 375),
+                Color.Black);
+        }   
+
         #endregion
 
     }
