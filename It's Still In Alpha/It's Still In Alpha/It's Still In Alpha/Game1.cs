@@ -36,7 +36,8 @@ namespace It_s_Still_In_Alpha
 
         public readonly Rectangle screenRectangle;
 
-        public SpriteFont font;
+        public SpriteFont titleFont;
+        public SpriteFont subtitleFont;
 
         #endregion
 
@@ -51,8 +52,6 @@ namespace It_s_Still_In_Alpha
             screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
 
             Content.RootDirectory = "Content";
-
-            
 
             Components.Add(new InputHandler(this));
 
