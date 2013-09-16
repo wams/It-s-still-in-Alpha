@@ -1,5 +1,8 @@
 Content\Ships\player_ship.xnb
 Content\Tiles\wall_1x1.xnb
 Content\Tiles\empty_space.xnb
+Content\Ships\ghost_ship.xnb
+Content\Tiles\wall_2x1_astroidBelt1.xnb
+Content\Tiles\wall_2x2.xnb
 Content\Fonts\subtitleFont.xnb
 Content\Fonts\titleFont.xnb
