@@ -34,7 +34,15 @@ namespace It_s_Still_In_Alpha
         protected Game1 GameRef;
 
         Vector2 position;
+        Vector2 index;
+
         int sourceSize;
+
+        public Vector2 Index
+        {
+            get { return index; }
+            set { index = value; }
+        }
 
         public Vector2 Position
         {
@@ -105,13 +113,19 @@ namespace It_s_Still_In_Alpha
             frameIndex = currentFrame;
         }
 
-        public virtual void Update(GameTime gameTime) 
+        public virtual void Update(GameTime gameTime, Boolean StopMoving = false) 
         {
-            double distance = speed * (gameTime.ElapsedGameTime.Milliseconds / 1000.0);
-            double change_in_x = distance * Util.cos(Util.degreesToRadians((double)direction));
-            double change_in_y = - distance * Util.sin(Util.degreesToRadians((double)direction));
-            position.X += (float)change_in_x;
-            position.Y += (float)change_in_y;
+            if (!StopMoving)
+            {
+                double distance = speed * (gameTime.ElapsedGameTime.Milliseconds / 1000.0);
+                double change_in_x = distance * Util.cos(Util.degreesToRadians((double)direction));
+                double change_in_y = -distance * Util.sin(Util.degreesToRadians((double)direction));
+                position.X += (float)change_in_x;
+                position.Y += (float)change_in_y;
+
+                index = new Vector2((int)Position.X, (int)Position.Y);
+            }
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

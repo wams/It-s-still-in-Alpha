@@ -35,10 +35,10 @@ namespace It_s_Still_In_Alpha
             base.LoadContent(image, animation, currentAnimation, currentFrame);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, Boolean stopMoving = false)
         {
             base.Update(gameTime);
-        }
+    }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

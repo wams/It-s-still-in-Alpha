@@ -25,16 +25,14 @@ namespace It_s_Still_In_Alpha.GameScreens
         #region Variables Region
 
         Player playerShip;
-        List<Ship> Ships;
 
         #endregion
 
         #region Timer Region
 
         int moveTime = 0;
-        int enemyMoveTime = 0;
         //at 60fps, 6 is 1 move every 10th of a second
-        int maxMoveTime = 6;
+        int maxMoveTime = 0;
 
         #endregion
 
@@ -65,13 +63,9 @@ namespace It_s_Still_In_Alpha.GameScreens
             }
 
             playerShip = new Player(GameRef);
-            playerShip.Position = new Vector2(5, 3);
+            playerShip.Index = new Vector2(5, 3);
+            playerShip.Position = playerShip.Index;
             playerShip.SourceSize = gridSize;
-
-
-
-            Ships = new List<Ship>();
-            Ships.Add(playerShip);
 
             map_keyboard_input();
         }
@@ -102,17 +96,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 }
             }
 
-            foreach (Ship ship in Ships)
-            {
-                if (ship is Player)
-                {
-                    ship.LoadContent("player_ship");
-                }
-                else
-                {
-                    ship.LoadContent("ghost_ship");
-                }
-            }
+            playerShip.LoadContent("player_ship");
 
             base.LoadContent();
         }
@@ -129,92 +113,71 @@ namespace It_s_Still_In_Alpha.GameScreens
                 }
             }
 
-            foreach (Ship ship in Ships)
+            if (moveTime > maxMoveTime)
             {
-                Vector2 Position = ship.Position;
-                if (ship is Player)
+                Vector2 Index = playerShip.Index;
+                switch (playerShip.Direction)
                 {
-                    ship.Update(gameTime);
-
-
-                    if (moveTime > maxMoveTime)
-                    {
-                        moveTime = 0;
-                    }
-                    else
-                    {
-                        moveTime++;
-                    }
-                }
-                else
-                {
-                    ship.Update(gameTime);
-
-                    if (moveTime > maxMoveTime)
-                    {
-                        switch (ship.Direction)
+                    case Ship.Facing.Up:
+                        if (Index.Y > 0)
                         {
-                            case Ship.Facing.Up:
-                                if (Position.Y > 0)
-                                {
-                                    if (tiles[(int)Position.X][(int)Position.Y - 1].Type == 0)
-                                    {
-                                        ship.Position = new Vector2(Position.X, Position.Y - 1);
-                                    }
-                                    else
-                                    {
-                                        ship.Direction = Ship.Facing.Down;
-                                    }
-                                }
-                                break;
-                            case Ship.Facing.Down:
-                                if (Position.Y < tiles[0].Count - 1)
-                                {
-                                    if (tiles[(int)Position.X][(int)Position.Y + 1].Type == 0)
-                                    {
-                                        ship.Position = new Vector2(Position.X, Position.Y + 1);
-                                    }
-                                    else
-                                    {
-                                        ship.Direction = Ship.Facing.Up;
-                                    }
-                                }
-                                break;
-                            case Ship.Facing.Left:
-                                if (Position.X > 0)
-                                {
-                                    if (tiles[(int)Position.X - 1][(int)Position.Y].Type == 0)
-                                    {
-                                        ship.Position = new Vector2(Position.X - 1, Position.Y);
-                                    }
-                                    else
-                                    {
-                                        ship.Direction = Ship.Facing.Right;
-                                    }
-                                }
-                                break;
-                            case Ship.Facing.Right:
-                                if (Position.X < tiles.Count - 1)
-                                {
-                                    if (tiles[(int)Position.X + 1][(int)Position.Y].Type == 0)
-                                    {
-                                        ship.Position = new Vector2(Position.X + 1, Position.Y);
-                                    }
-                                    else
-                                    {
-                                        ship.Direction = Ship.Facing.Left;
-                                    }
-                                }
-                                break;
+                            if (tiles[(int)Index.X][(int)Index.Y - 1].Type != 0)
+                            {
+                                playerShip.StopMoving = true;
+                            }
+                            else
+                            {
+                                playerShip.StopMoving = false;
+                            }
                         }
-                        enemyMoveTime = 0;
-                    }
-                    else
-                    {
-                        enemyMoveTime++;
-                    }
+                        break;
+                    case Ship.Facing.Down:
+                        if (Index.Y < tiles[0].Count - 1)
+                        {
+                            if (tiles[(int)Index.X][(int)Index.Y + 1].Type != 0)
+                            {
+                                playerShip.StopMoving = true;
+                            }
+                            else
+                            {
+                                playerShip.StopMoving = false;
+                            }
+                        }
+                        break;
+                    case Ship.Facing.Left:
+                        if (Index.X > 0)
+                        {
+                            if (tiles[(int)Index.X - 1][(int)Index.Y].Type != 0)
+                            {
+                                playerShip.StopMoving = true;
+                            }
+                            else
+                            {
+                                playerShip.StopMoving = false;
+                            }
+                        }
+                        break;
+                    case Ship.Facing.Right:
+                        if (Index.X < tiles.Count - 1)
+                        {
+                            if (tiles[(int)Index.X + 1][(int)Index.Y].Type != 0)
+                            {
+                                playerShip.StopMoving = true;
+                            }
+                            else
+                            {
+                                playerShip.StopMoving = false;
+                            }
+                        }
+                        break;
                 }
             }
+            else
+            {
+                moveTime++;
+            }
+
+            playerShip.Update(gameTime, playerShip.StopMoving);
             base.Update(gameTime);
         }
 
@@ -232,17 +195,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 }
             }
 
-            foreach (Ship ship in Ships)
-            {
-                if (ship is Player)
-                {
-                    ship.Draw(GameRef.spriteBatch);
-                }
-                else
-                {
-                    ship.Draw(GameRef.spriteBatch);
-                }
-            }
+            playerShip.Draw(GameRef.spriteBatch);
 
             base.Draw(gameTime);
 

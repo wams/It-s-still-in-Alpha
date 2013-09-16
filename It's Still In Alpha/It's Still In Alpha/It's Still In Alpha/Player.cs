@@ -15,11 +15,20 @@ namespace It_s_Still_In_Alpha
     {
         List<Ship> ghostShips = new List<Ship>();
 
+        private Boolean stopMoving;
+
+        public Boolean StopMoving
+        {
+            get { return stopMoving; }
+            set { stopMoving = value; }
+        }
+
         public Player(Game1 gameRef)
             : base(gameRef)
         {
             Alive = true;
             Direction = Facing.Up;
+            StopMoving = false;
         }
 
         public override bool Collision(Ship ship)
@@ -37,9 +46,9 @@ namespace It_s_Still_In_Alpha
             base.LoadContent(image, animation, currentAnimation, currentFrame);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, Boolean stopMoving)
         {
-            if (Direction == Facing.Down || Direction == Facing.Up)
+            /*if (Direction == Facing.Down || Direction == Facing.Up)
             {
                 if (InputHandler.KeyPressed(Keys.Right))
                 {
@@ -61,8 +70,9 @@ namespace It_s_Still_In_Alpha
                     Direction = Facing.Down;
                 }
             }
+            */
+            base.Update(gameTime, stopMoving);
 
-            base.Update(gameTime);
             foreach (Ship ghost in ghostShips)
             {
                 ghost.Update(gameTime);
