@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -19,6 +20,8 @@ namespace It_s_Still_In_Alpha.GameScreens
         #region Map Region
 
         List<List<Tile>> tiles;
+        List<List<int>> tileType;
+
         const int gridSize = 96;
         #endregion
 
@@ -43,19 +46,22 @@ namespace It_s_Still_In_Alpha.GameScreens
         {
             tiles = new List<List<Tile>>();
 
-            for (int i = 0; i <= GameRef.screenRectangle.Width; i += gridSize)
+            tileType = ReadFromFile("level1.txt");
+
+            for (int i = 0; i < GameRef.screenRectangle.Width/gridSize; i ++)
             {
                 List<Tile> tileRow = new List<Tile>();
-                for (int j = 0; j <= GameRef.screenRectangle.Height; j += gridSize)
+                for (int j = 0; j < GameRef.screenRectangle.Height/gridSize; j ++)
                 {
                     
-                    Tile newTile = new Tile(new Rectangle(i, j, gridSize, gridSize), new Rectangle(i, j, gridSize, gridSize), GameRef.Content);
+                    Tile newTile = new Tile(new Rectangle(i*gridSize, j*gridSize, gridSize, gridSize), new Rectangle(i*gridSize, j*gridSize, gridSize, gridSize), GameRef.Content);
                     newTile.Type = 0;
 
-                    if (i == 0 || j == 0 || i >= GameRef.screenRectangle.Width - gridSize || j >= GameRef.screenRectangle.Height - gridSize)
+                    if (tileType[j][i] != 0)
                     {
                         newTile.Type = 1;
                     }
+
                     //add tile image and type here
                     tileRow.Add(newTile);
                 }
@@ -68,6 +74,34 @@ namespace It_s_Still_In_Alpha.GameScreens
             playerShip.SourceSize = gridSize;
 
             map_keyboard_input();
+        }
+
+        #endregion
+
+        #region My Functions
+
+        List<List<int>> ReadFromFile(string levelName)
+        {
+            List<List<int>> tileType = new List<List<int>>();
+
+            StreamReader levelFile = new StreamReader("Content/Maps/" + levelName);
+
+            string line;
+            while ((line = levelFile.ReadLine()) != null)
+            {
+                List<int> row = new List<int>();
+
+                string[] splitLine = line.Split(' ');
+
+                for (int i = 0; i < splitLine.Length; i++)
+                {
+                    row.Add(Convert.ToInt32(splitLine[i]));
+                }
+
+                tileType.Add(row);
+            }
+
+            return tileType;
         }
 
         #endregion
@@ -115,7 +149,7 @@ namespace It_s_Still_In_Alpha.GameScreens
 
             if (moveTime > maxMoveTime)
             {
-                Vector2 Index = playerShip.Index;
+                /*Vector2 Index = playerShip.Index;
                 switch (playerShip.Direction)
                 {
                     case Ship.Facing.Up:
@@ -170,14 +204,15 @@ namespace It_s_Still_In_Alpha.GameScreens
                             }
                         }
                         break;
-                }
+                }*/
             }
             else
             {
                 moveTime++;
             }
 
-            playerShip.Update(gameTime, playerShip.StopMoving);
+            playerShip.Update(gameTime);
+            playerShip.TileCollision(tiles);
             base.Update(gameTime);
         }
 

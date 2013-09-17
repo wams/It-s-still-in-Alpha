@@ -15,13 +15,13 @@ namespace It_s_Still_In_Alpha
     {
         List<Ship> ghostShips = new List<Ship>();
 
-        private Boolean stopMoving;
+        //private Boolean stopMoving;
 
-        public Boolean StopMoving
+        /*public Boolean StopMoving
         {
             get { return stopMoving; }
             set { stopMoving = value; }
-        }
+        }*/
 
         public Player(Game1 gameRef)
             : base(gameRef)
@@ -29,6 +29,15 @@ namespace It_s_Still_In_Alpha
             Alive = true;
             Direction = Facing.Up;
             StopMoving = false;
+        }
+
+        public override bool TileCollision(List<List<Tile>> tiles)
+        {
+            foreach (Ship ghost in ghostShips)
+            {
+                ghost.TileCollision(tiles);
+            }
+            return base.TileCollision(tiles);
         }
 
         public override bool Collision(Ship ship)
@@ -46,7 +55,7 @@ namespace It_s_Still_In_Alpha
             base.LoadContent(image, animation, currentAnimation, currentFrame);
         }
 
-        public override void Update(GameTime gameTime, Boolean stopMoving)
+        public override void Update(GameTime gameTime)
         {
             /*if (Direction == Facing.Down || Direction == Facing.Up)
             {
@@ -71,7 +80,7 @@ namespace It_s_Still_In_Alpha
                 }
             }
             */
-            base.Update(gameTime, stopMoving);
+            base.Update(gameTime);
 
             foreach (Ship ghost in ghostShips)
             {
@@ -93,11 +102,11 @@ namespace It_s_Still_In_Alpha
         {
             if ((int)Direction % 180 != (int)dir % 180)
             {
-                Ship ghost = new Ship(GameRef);
+                Ship ghost = new Enemy(GameRef);
                 ghost.Direction = Direction;
                 ghost.Position = Position;
                 ghost.SourceSize = SourceSize;
-                ghost.LoadContent("player_ship");
+                ghost.LoadContent("ghost_ship");
                 ghostShips.Add(ghost);
                 Direction = dir;
             }

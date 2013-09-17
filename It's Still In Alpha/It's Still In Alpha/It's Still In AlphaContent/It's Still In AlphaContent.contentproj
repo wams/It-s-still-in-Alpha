@@ -44,7 +44,6 @@
   <ItemGroup>
     <Folder Include="Backgrounds\" />
     <Folder Include="GUI\" />
-    <Folder Include="Maps\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ships\player_ship.png">
@@ -99,6 +98,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Maps\level1.txt">
+      <Name>level1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <Target Name="BeforeBuild">

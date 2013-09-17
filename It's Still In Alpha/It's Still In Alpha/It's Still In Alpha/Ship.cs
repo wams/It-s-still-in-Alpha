@@ -26,6 +26,8 @@ namespace It_s_Still_In_Alpha
 
         #region Variables Region
 
+        protected bool StopMoving = false;
+
         Texture2D shipImage;
         Dictionary<string, List<Rectangle>> Frames;
         string currentAnimation;
@@ -56,7 +58,7 @@ namespace It_s_Still_In_Alpha
             set { sourceSize = value; }
         }
 
-        double speed = 1.0;
+        double speed = 2.0;
         public double Speed
         {
             get { return speed; }
@@ -97,7 +99,66 @@ namespace It_s_Still_In_Alpha
         #region Virtual Functions
 
         /*making these virtual/abstract so that we remember to add them to both inherited ship classes*/
-        public virtual bool Collision(Ship ship) { return true; }
+        public virtual bool TileCollision(List<List<Tile>> tiles)
+        {
+            switch (Direction)
+            {
+                case Ship.Facing.Up:
+                    if (Index.Y > 0)
+                    {
+                        if (tiles[(int)Index.X][(int)Index.Y - 1].Type != 0)
+                        {
+                            StopMoving = true;
+                        }
+                        else
+                        {
+                            StopMoving = false;
+                        }
+                    }
+                    break;
+                case Ship.Facing.Down:
+                    if (Index.Y < tiles[0].Count - 1)
+                    {
+                        if (tiles[(int)Index.X][(int)Index.Y + 1].Type != 0)
+                        {
+                            StopMoving = true;
+                        }
+                        else
+                        {
+                            StopMoving = false;
+                        }
+                    }
+                    break;
+                case Ship.Facing.Left:
+                    if (Index.X > 0)
+                    {
+                        if (tiles[(int)Index.X - 1][(int)Index.Y].Type != 0)
+                        {
+                            StopMoving = true;
+                        }
+                        else
+                        {
+                            StopMoving = false;
+                        }
+                    }
+                    break;
+                case Ship.Facing.Right:
+                    if (Index.X < tiles.Count - 1)
+                    {
+                        if (tiles[(int)Index.X + 1][(int)Index.Y].Type != 0)
+                        {
+                            StopMoving = true;
+                        }
+                        else
+                        {
+                            StopMoving = false;
+                        }
+                    }
+                    break;
+            }
+            return StopMoving;
+        }
+        public virtual bool Collision(Ship ship) { return false; }
 
         public virtual void LoadContent(string image)
         {
@@ -113,7 +174,7 @@ namespace It_s_Still_In_Alpha
             frameIndex = currentFrame;
         }
 
-        public virtual void Update(GameTime gameTime, Boolean StopMoving = false) 
+        public virtual void Update(GameTime gameTime) 
         {
             if (!StopMoving)
             {

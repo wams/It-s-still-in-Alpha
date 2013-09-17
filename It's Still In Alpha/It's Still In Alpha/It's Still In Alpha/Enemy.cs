@@ -20,6 +20,17 @@ namespace It_s_Still_In_Alpha
             Direction = Facing.Up;
         }
 
+        public override bool TileCollision(List<List<Tile>> tiles)
+        {
+            if (base.TileCollision(tiles))
+            {
+                StopMoving = false;
+                Direction = (Facing)((int)(Direction + 180) % 360);
+                return true;
+            }
+            return false;
+        }
+
         public override bool Collision(Ship ship)
         {
             return false;
@@ -35,7 +46,7 @@ namespace It_s_Still_In_Alpha
             base.LoadContent(image, animation, currentAnimation, currentFrame);
         }
 
-        public override void Update(GameTime gameTime, Boolean stopMoving = false)
+        public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
     }
