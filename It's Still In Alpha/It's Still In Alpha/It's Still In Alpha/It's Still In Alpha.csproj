@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sounds.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="GhostShip.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="GameScreens\PlayScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />

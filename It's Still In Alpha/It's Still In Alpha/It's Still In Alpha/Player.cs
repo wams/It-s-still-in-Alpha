@@ -13,41 +13,24 @@ namespace It_s_Still_In_Alpha
 {
     class Player : Ship
     {
-        List<Ship> ghostShips = new List<Ship>();
-
-        //private Boolean stopMoving;
-
-        /*public Boolean StopMoving
-        {
-            get { return stopMoving; }
-            set { stopMoving = value; }
-        }*/
+        public List<GhostShip> ghostShips = new List<GhostShip>();
+        public static List<Player> all_player_ships = new List<Player>();
 
         public Player(Game1 gameRef)
             : base(gameRef)
         {
-            Alive = true;
-            Direction = Facing.Up;
-            StopMoving = false;
+            shipImageName = "player_ship";
+            all_player_ships.Add(this);
         }
 
         public override bool TileCollision(List<List<Tile>> tiles)
         {
-            foreach (Ship ghost in ghostShips)
-            {
-                ghost.TileCollision(tiles);
-            }
             return base.TileCollision(tiles);
         }
 
         public override bool Collision(Ship ship)
         {
             return false;
-        }
-
-        public override void LoadContent(string image)
-        {
-            base.LoadContent(image);
         }
 
         public override void LoadContent(string image, Dictionary<string, List<Rectangle>> animation, string currentAnimation, int currentFrame)
@@ -57,44 +40,12 @@ namespace It_s_Still_In_Alpha
 
         public override void Update(GameTime gameTime)
         {
-            /*if (Direction == Facing.Down || Direction == Facing.Up)
-            {
-                if (InputHandler.KeyPressed(Keys.Right))
-                {
-                    Direction = Facing.Right;
-                }
-                if (InputHandler.KeyPressed(Keys.Left))
-                {
-                    Direction = Facing.Left;
-                }
-            }
-            if (Direction == Facing.Left || Direction == Facing.Right)
-            {
-                if (InputHandler.KeyPressed(Keys.Up))
-                {
-                    Direction = Facing.Up;
-                }
-                if (InputHandler.KeyPressed(Keys.Down))
-                {
-                    Direction = Facing.Down;
-                }
-            }
-            */
             base.Update(gameTime);
-
-            foreach (Ship ghost in ghostShips)
-            {
-                ghost.Update(gameTime);
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            foreach (Ship ghost in ghostShips)
-            {
-                ghost.Draw(spriteBatch);
-            }
         }
 
         #region Input Functions
@@ -102,11 +53,11 @@ namespace It_s_Still_In_Alpha
         {
             if ((int)Direction % 180 != (int)dir % 180)
             {
-                Ship ghost = new Enemy(GameRef);
+                GhostShip ghost = new GhostShip(GameRef, this);
                 ghost.Direction = Direction;
                 ghost.Position = Position;
                 ghost.SourceSize = SourceSize;
-                ghost.LoadContent("ghost_ship");
+                ghost.LoadContent();
                 ghostShips.Add(ghost);
                 Direction = dir;
             }
@@ -133,5 +84,20 @@ namespace It_s_Still_In_Alpha
         }
         #endregion
 
+        public new static void draw_all_ships(SpriteBatch spriteBatch)
+        {
+            draw_ships(spriteBatch, all_player_ships);
+        }
+
+        public new static void update_all_ships(GameTime gameTime)
+        {
+            update_ships(gameTime, all_player_ships);
+        }
+
+
+        public new static void tile_collision_all_ships(List<List<Tile>> tiles)
+        {
+            tile_collision_ships(tiles, all_player_ships);
+        }
     }
 }

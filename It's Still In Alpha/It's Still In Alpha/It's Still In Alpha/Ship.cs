@@ -24,11 +24,19 @@ namespace It_s_Still_In_Alpha
              Right = 0, Up = 90, Left = 180, Down = 270 
         }
 
+        #region Static Variables
+        
+        public static List<Ship> all_ships = new List<Ship>();
+
+        #endregion
+
         #region Variables Region
 
         protected bool StopMoving = false;
+        protected double last_move_time = 0.0; 
 
         Texture2D shipImage;
+        protected string shipImageName;
         Dictionary<string, List<Rectangle>> Frames;
         string currentAnimation;
         int frameIndex;
@@ -73,7 +81,7 @@ namespace It_s_Still_In_Alpha
             set { direction = value; }
         }
 
-        Boolean alive;
+        Boolean alive = true;
 
         public Boolean Alive
         {
@@ -90,8 +98,7 @@ namespace It_s_Still_In_Alpha
         public Ship(Game1 gameRef)
         {
             GameRef = gameRef;
-
-            direction = Facing.Up;
+            all_ships.Add(this);
         }
 
         #endregion
@@ -158,11 +165,29 @@ namespace It_s_Still_In_Alpha
             }
             return StopMoving;
         }
-        public virtual bool Collision(Ship ship) { return false; }
 
-        public virtual void LoadContent(string image)
+        public virtual bool Collision(Ship ship) 
         {
-            shipImage = GameRef.Content.Load<Texture2D>("Ships/"+image);
+            return ((((int)ship.Position.X) == ((int)position.X)) && (((int)ship.Position.Y) == ((int)position.Y)));
+        }
+
+        public virtual bool Collided()
+        {
+            bool has_collided = false;
+            foreach (Ship ship in all_ships)
+            {
+                if (Collision(ship) && ship != this)
+                {
+                    has_collided = true;
+                    alive = false;
+                }
+            }
+            return has_collided;
+        }
+
+        public virtual void LoadContent()
+        {
+            shipImage = GameRef.Content.Load<Texture2D>("Ships/"+shipImageName);
         }
 
         public virtual void LoadContent(string image, Dictionary<string, List<Rectangle>> animation, string currentAnimation, int currentFrame)
@@ -178,6 +203,7 @@ namespace It_s_Still_In_Alpha
         {
             if (!StopMoving)
             {
+                double time;
                 double distance = speed * (gameTime.ElapsedGameTime.Milliseconds / 1000.0);
                 double change_in_x = distance * Util.cos(Util.degreesToRadians((double)direction));
                 double change_in_y = -distance * Util.sin(Util.degreesToRadians((double)direction));
@@ -186,15 +212,73 @@ namespace It_s_Still_In_Alpha
 
                 index = new Vector2((int)Position.X, (int)Position.Y);
             }
-
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(shipImage, new Rectangle((int)Position.X * SourceSize + shipImage.Bounds.Center.X, (int)Position.Y * SourceSize + shipImage.Bounds.Center.Y, SourceSize, SourceSize), null, Color.White, 
-                MathHelper.ToRadians((int)Direction - 90), new Vector2(shipImage.Bounds.Center.X, shipImage.Bounds.Center.Y), SpriteEffects.None, 0);
+            if (alive)
+            {
+                spriteBatch.Draw(shipImage, new Rectangle((int)Position.X * SourceSize + shipImage.Bounds.Center.X, (int)Position.Y * SourceSize + shipImage.Bounds.Center.Y, SourceSize, SourceSize), null, Color.White,
+                    -MathHelper.ToRadians((int)Direction - 90), new Vector2(shipImage.Bounds.Center.X, shipImage.Bounds.Center.Y), SpriteEffects.None, 0);
+            }
         }
 
         #endregion
+
+
+        #region static methods
+
+        public static void draw_all_ships(SpriteBatch spriteBatch)
+        {
+            draw_ships(spriteBatch, all_ships );
+        }
+
+        public static void draw_ships<T>(SpriteBatch spriteBatch, List<T> ships) where T : Ship
+        {
+            foreach (Ship ship in ships)
+            {
+                ship.Draw(spriteBatch);
+            }
+        }
+
+        public static void update_all_ships(GameTime gameTime)
+        {
+            update_ships( gameTime, all_ships );
+        }
+
+        public static void update_ships<T>(GameTime gameTime, List<T> ships) where T : Ship
+        {
+            foreach (Ship ship in ships)
+            {
+                ship.Update(gameTime);
+            }
+        }
+
+        public static void tile_collision_all_ships(List<List<Tile>> tiles)
+        {
+            tile_collision_ships(tiles, all_ships );
+        }
+
+        public static void tile_collision_ships<T>(List<List<Tile>> tiles, List<T> ships) where T : Ship
+        {
+            foreach (Ship ship in ships)
+            {
+                ship.TileCollision(tiles);
+            }
+        }
+        #endregion
+
+        public static void collision_all_ships()
+        {
+            collision_ships(all_ships);
+        }
+
+        public static void collision_ships<T>( List<T> ships) where T : Ship
+        {
+            foreach (Ship ship in ships)
+            {
+                ship.Collided();
+            }
+        }
     }
 }

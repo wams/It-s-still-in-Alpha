@@ -130,7 +130,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 }
             }
 
-            playerShip.LoadContent("player_ship");
+            playerShip.LoadContent();
 
             base.LoadContent();
         }
@@ -147,72 +147,10 @@ namespace It_s_Still_In_Alpha.GameScreens
                 }
             }
 
-            if (moveTime > maxMoveTime)
-            {
-                /*Vector2 Index = playerShip.Index;
-                switch (playerShip.Direction)
-                {
-                    case Ship.Facing.Up:
-                        if (Index.Y > 0)
-                        {
-                            if (tiles[(int)Index.X][(int)Index.Y - 1].Type != 0)
-                            {
-                                playerShip.StopMoving = true;
-                            }
-                            else
-                            {
-                                playerShip.StopMoving = false;
-                            }
-                        }
-                        break;
-                    case Ship.Facing.Down:
-                        if (Index.Y < tiles[0].Count - 1)
-                        {
-                            if (tiles[(int)Index.X][(int)Index.Y + 1].Type != 0)
-                            {
-                                playerShip.StopMoving = true;
-                            }
-                            else
-                            {
-                                playerShip.StopMoving = false;
-                            }
-                        }
-                        break;
-                    case Ship.Facing.Left:
-                        if (Index.X > 0)
-                        {
-                            if (tiles[(int)Index.X - 1][(int)Index.Y].Type != 0)
-                            {
-                                playerShip.StopMoving = true;
-                            }
-                            else
-                            {
-                                playerShip.StopMoving = false;
-                            }
-                        }
-                        break;
-                    case Ship.Facing.Right:
-                        if (Index.X < tiles.Count - 1)
-                        {
-                            if (tiles[(int)Index.X + 1][(int)Index.Y].Type != 0)
-                            {
-                                playerShip.StopMoving = true;
-                            }
-                            else
-                            {
-                                playerShip.StopMoving = false;
-                            }
-                        }
-                        break;
-                }*/
-            }
-            else
-            {
-                moveTime++;
-            }
+            Ship.update_all_ships(gameTime);
+            Ship.tile_collision_all_ships(tiles);
+            Ship.collision_all_ships();
 
-            playerShip.Update(gameTime);
-            playerShip.TileCollision(tiles);
             base.Update(gameTime);
         }
 
@@ -230,7 +168,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 }
             }
 
-            playerShip.Draw(GameRef.spriteBatch);
+            Ship.draw_all_ships(GameRef.spriteBatch);
 
             base.Draw(gameTime);
 
