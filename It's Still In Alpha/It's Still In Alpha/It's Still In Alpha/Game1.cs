@@ -27,6 +27,8 @@ namespace It_s_Still_In_Alpha
         public TitleScreen titleScreen;
         public PlayScreen playScreen;
 
+        private GameInput GameInput;
+
         #region Screen Properties
 
         const int screenWidth = 96 * 20;
@@ -87,6 +89,18 @@ namespace It_s_Still_In_Alpha
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            // create the GameInput - UI depends on this
+            GameInput = new GameInput((int)E_UiButton.Count, (int)E_UiAxis.Count);
+
+            // setup the UI's input mappings
+            _UI.SetupControls(GameInput);
+
+            // setup the UI with default settings
+            _UI.Startup(this, GameInput);
+
+            // add the initial UI screen
+            //_UI.Screen.AddScreen(new UI.Screen());
         }
 
         /// <summary>
@@ -96,6 +110,7 @@ namespace It_s_Still_In_Alpha
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            _UI.Shutdown();
         }
 
         /// <summary>

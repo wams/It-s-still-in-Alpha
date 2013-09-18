@@ -131,6 +131,15 @@
       <Name>It_s_Still_In_AlphaContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
+    <ProjectReference Include="..\XUIContent\XUIContent.contentproj">
+      <Project>{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}</Project>
+      <Name>XUIContent %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\XUI\XUI.csproj">
+      <Project>{2F953A14-0E2F-4670-8D82-866020E8DE7B}</Project>
+      <Name>XUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
