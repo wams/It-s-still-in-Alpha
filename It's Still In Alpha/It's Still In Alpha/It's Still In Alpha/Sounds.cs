@@ -13,7 +13,8 @@ using Microsoft.Xna.Framework.Media;
 
 namespace It_s_Still_In_Alpha
 {
-    // to use insert Sounds.play_______(Content); into the area wanted
+    // Sounds are loaded, by the loadSounds function, in Game1.cs in the LoadContent function
+    // to use insert Sounds.play_______(); into the area wanted
     class Sounds
     {
         static ContentManager Content;
