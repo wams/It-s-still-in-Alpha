@@ -83,6 +83,8 @@ namespace It_s_Still_In_Alpha
         /// </summary>
         protected override void LoadContent()
         {
+            Sounds.loadSounds(Content);
+            Sounds.playIntro();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
