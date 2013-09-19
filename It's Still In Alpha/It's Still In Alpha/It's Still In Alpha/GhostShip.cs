@@ -28,6 +28,7 @@ namespace It_s_Still_In_Alpha
         {
             shipImageName = "ghost_ship";
             originShip = origin;
+            last_move_time = originShip.last_move_time;
             all_ghost_ships.Add(this);
         }
 
@@ -40,6 +41,21 @@ namespace It_s_Still_In_Alpha
                 return true;
             }
             return false;
+        }
+
+        public override bool Collided()
+        {
+            bool has_collided = false;
+            foreach (Ship ship in all_ghost_ships)
+            {
+                if (Collision(ship))
+                {
+                    has_collided = true;
+                    ship.alive = false;
+                    alive = false;
+                }
+            }
+            return has_collided;
         }
 
         public override void LoadContent(string image, Dictionary<string, List<Rectangle>> animation, string currentAnimation, int currentFrame)

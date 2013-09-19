@@ -53,6 +53,8 @@ namespace It_s_Still_In_Alpha
 
             Content.RootDirectory = "Content";
 
+            Sounds.loadSounds(Content);
+
             Components.Add(new InputHandler(this));
 
             stateManager = new GameStateManager(this);
@@ -83,7 +85,7 @@ namespace It_s_Still_In_Alpha
         /// </summary>
         protected override void LoadContent()
         {
-            Sounds.loadSounds(Content);
+         
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 

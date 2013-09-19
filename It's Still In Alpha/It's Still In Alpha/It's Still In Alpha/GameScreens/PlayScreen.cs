@@ -67,6 +67,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 }
                 tiles.Add(tileRow);
             }
+            Sounds.playGameSong();
 
             playerShip = new Player(GameRef);
             playerShip.Index = new Vector2(5, 3);

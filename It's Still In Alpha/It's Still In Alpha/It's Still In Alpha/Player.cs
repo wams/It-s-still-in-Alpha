@@ -53,6 +53,7 @@ namespace It_s_Still_In_Alpha
         {
             if ((int)Direction % 180 != (int)dir % 180)
             {
+                StopMoving = false;
                 GhostShip ghost = new GhostShip(GameRef, this);
                 ghost.Direction = Direction;
                 ghost.Position = Position;

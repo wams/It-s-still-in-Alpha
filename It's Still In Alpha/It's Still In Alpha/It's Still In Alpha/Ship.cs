@@ -33,7 +33,7 @@ namespace It_s_Still_In_Alpha
         #region Variables Region
 
         protected bool StopMoving = false;
-        protected double last_move_time = 0.0; 
+        public double last_move_time = 0.0; 
 
         Texture2D shipImage;
         protected string shipImageName;
@@ -81,15 +81,13 @@ namespace It_s_Still_In_Alpha
             set { direction = value; }
         }
 
-        Boolean alive = true;
+        public bool alive = true;
 
-        public Boolean Alive
+        public bool Alive
         {
             get { return alive; }
             set { alive = value; }
         }
-
-        List<Ship> ghostShips = new List<Ship>();
 
         #endregion
 
@@ -108,66 +106,41 @@ namespace It_s_Still_In_Alpha
         /*making these virtual/abstract so that we remember to add them to both inherited ship classes*/
         public virtual bool TileCollision(List<List<Tile>> tiles)
         {
-            switch (Direction)
+            if ((int)Index.X >= 0 && (int)Index.Y >= 0 && (int)Index.X < tiles.Count && (int)Index.Y < tiles[0].Count)
             {
-                case Ship.Facing.Up:
-                    if (Index.Y > 0)
+                if (tiles[(int)Index.X][(int)Index.Y].Type != 0)
+                {
+                    StopMoving = true;
+                    switch (Direction)
                     {
-                        if (tiles[(int)Index.X][(int)Index.Y - 1].Type != 0)
-                        {
-                            StopMoving = true;
-                        }
-                        else
-                        {
-                            StopMoving = false;
-                        }
+                        case Ship.Facing.Up:
+                            position.Y += 1;
+                            index.Y += 1;
+                            break;
+                        case Ship.Facing.Down:
+                            position.Y -= 1;
+                            index.Y -= 1;
+                            break;
+                        case Ship.Facing.Left:
+                            position.X += 1;
+                            index.X += 1;
+                            break;
+                        case Ship.Facing.Right:
+                            position.X -= 1;
+                            index.X -= 1;
+                            break;
                     }
-                    break;
-                case Ship.Facing.Down:
-                    if (Index.Y < tiles[0].Count - 1)
-                    {
-                        if (tiles[(int)Index.X][(int)Index.Y + 1].Type != 0)
-                        {
-                            StopMoving = true;
-                        }
-                        else
-                        {
-                            StopMoving = false;
-                        }
-                    }
-                    break;
-                case Ship.Facing.Left:
-                    if (Index.X > 0)
-                    {
-                        if (tiles[(int)Index.X - 1][(int)Index.Y].Type != 0)
-                        {
-                            StopMoving = true;
-                        }
-                        else
-                        {
-                            StopMoving = false;
-                        }
-                    }
-                    break;
-                case Ship.Facing.Right:
-                    if (Index.X < tiles.Count - 1)
-                    {
-                        if (tiles[(int)Index.X + 1][(int)Index.Y].Type != 0)
-                        {
-                            StopMoving = true;
-                        }
-                        else
-                        {
-                            StopMoving = false;
-                        }
-                    }
-                    break;
+                }
             }
             return StopMoving;
         }
 
         public virtual bool Collision(Ship ship) 
         {
+            if (!ship.alive || !alive)
+                return false;
+            if(ship == this) 
+                return false;
             return ((((int)ship.Position.X) == ((int)position.X)) && (((int)ship.Position.Y) == ((int)position.Y)));
         }
 
@@ -176,9 +149,10 @@ namespace It_s_Still_In_Alpha
             bool has_collided = false;
             foreach (Ship ship in all_ships)
             {
-                if (Collision(ship) && ship != this)
+                if (Collision(ship))
                 {
                     has_collided = true;
+
                     alive = false;
                 }
             }
@@ -203,14 +177,16 @@ namespace It_s_Still_In_Alpha
         {
             if (!StopMoving)
             {
-                double time;
-                double distance = speed * (gameTime.ElapsedGameTime.Milliseconds / 1000.0);
-                double change_in_x = distance * Util.cos(Util.degreesToRadians((double)direction));
-                double change_in_y = -distance * Util.sin(Util.degreesToRadians((double)direction));
-                position.X += (float)change_in_x;
-                position.Y += (float)change_in_y;
-
-                index = new Vector2((int)Position.X, (int)Position.Y);
+                if (gameTime.TotalGameTime.TotalSeconds - last_move_time > (1.0 / speed))
+                {
+                    double change_in_x = Util.cos(Util.degreesToRadians((double)direction));
+                    double change_in_y = -Util.sin(Util.degreesToRadians((double)direction));
+                    last_move_time = gameTime.TotalGameTime.TotalSeconds; 
+                    position.X += (float)change_in_x;
+                    position.Y += (float)change_in_y;
+                    
+                    index = new Vector2((int)Position.X, (int)Position.Y);
+                }
             }
         }
 
