@@ -28,6 +28,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         #region Variables Region
 
         Player playerShip;
+        int counter;
 
         #endregion
 
@@ -105,6 +106,13 @@ namespace It_s_Still_In_Alpha.GameScreens
             return tileType;
         }
 
+        public void checkWin()
+        {
+            if (counter == 0)
+            {
+                //you have won the game exit
+            }
+        }
         #endregion
 
         #region XNA Functions
@@ -120,6 +128,8 @@ namespace It_s_Still_In_Alpha.GameScreens
                     switch (tile.Type)
                     {
                         case 0:
+                            counter++;
+                            tile.score = 100;
                             tile.LoadContent("empty_space");
                             break;
                         case 1:
@@ -151,14 +161,15 @@ namespace It_s_Still_In_Alpha.GameScreens
             Ship.update_all_ships(gameTime);
             Ship.tile_collision_all_ships(tiles);
             Ship.collision_all_ships();
-
+            counter = playerShip.setScore(tiles,counter);
+            checkWin();
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
             GameRef.spriteBatch.Begin();
-
+            
             GameRef.GraphicsDevice.Clear(Color.Black);
 
             foreach (List<Tile> tileRow in tiles)

@@ -15,10 +15,12 @@ namespace It_s_Still_In_Alpha
     {
         public List<GhostShip> ghostShips = new List<GhostShip>();
         public static List<Player> all_player_ships = new List<Player>();
+        public int score;
 
         public Player(Game1 gameRef)
             : base(gameRef)
         {
+            score = 10;
             shipImageName = "player_ship";
             all_player_ships.Add(this);
         }
@@ -33,6 +35,17 @@ namespace It_s_Still_In_Alpha
             return false;
         }
 
+        public int setScore(List<List<Tile>> tiles,int counter)
+        {
+            if (!tiles[(int)Index.X][(int)Index.Y].visited)
+            {
+                score += tiles[(int)Index.X][(int)Index.Y].score;
+                tiles[(int)Index.X][(int)Index.Y].visited = true;
+                return counter--;
+            }
+            return counter;
+        }
+
         public override void LoadContent(string image, Dictionary<string, List<Rectangle>> animation, string currentAnimation, int currentFrame)
         {
             base.LoadContent(image, animation, currentAnimation, currentFrame);
@@ -45,6 +58,10 @@ namespace It_s_Still_In_Alpha
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            GameRef.spriteBatch.DrawString(GameRef.titleFont,
+                score.ToString(),
+                new Vector2(GameRef.screenRectangle.Center.X + 650, GameRef.screenRectangle.Center.Y + 400),
+                Color.Yellow);
             base.Draw(spriteBatch);
         }
 

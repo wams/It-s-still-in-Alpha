@@ -15,10 +15,10 @@ namespace It_s_Still_In_Alpha
     class Tile
     {
         static ContentManager Content;
-
         private Rectangle sourceRect;
         private Rectangle destRect;
-
+        public bool visited = false;
+        public int score = 0;
         private int type;
 
         public Rectangle SourceRect
@@ -27,12 +27,13 @@ namespace It_s_Still_In_Alpha
             set { sourceRect = value; }
         }
 
+        
+
         public Rectangle DestRect
         {
             get { return destRect; }
             set { destRect = value; }
         }
-
         public int Type
         {
             get { return type; }
@@ -45,7 +46,6 @@ namespace It_s_Still_In_Alpha
         {
             SourceRect = source;
             DestRect = dest;
-
             Content = content;
         }
 
