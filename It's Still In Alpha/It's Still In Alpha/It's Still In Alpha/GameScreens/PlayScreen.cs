@@ -47,7 +47,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         {
             tiles = new List<List<Tile>>();
 
-            tileType = ReadFromFile("level1.txt");
+            tileType = ReadFromFile("Level 1");
 
             for (int i = 0; i < GameRef.screenRectangle.Width/gridSize; i ++)
             {
@@ -86,7 +86,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         {
             List<List<char>> tileType = new List<List<char>>();
 
-            StreamReader levelFile = new StreamReader("Content/Maps/" + levelName);
+            StreamReader levelFile = new StreamReader("Content/Maps/" + levelName + ".txt");
 
             string line;
             while ((line = levelFile.ReadLine()) != null)
@@ -104,6 +104,41 @@ namespace It_s_Still_In_Alpha.GameScreens
             }
 
             return tileType;
+        }
+
+        public void LoadLevel(string levelName)
+        {
+            tiles = new List<List<Tile>>();
+
+            tileType = ReadFromFile(levelName);
+
+            for (int i = 0; i < GameRef.screenRectangle.Width / gridSize; i++)
+            {
+                List<Tile> tileRow = new List<Tile>();
+                for (int j = 0; j < GameRef.screenRectangle.Height / gridSize; j++)
+                {
+
+                    Tile newTile = new Tile(new Rectangle(i * gridSize, j * gridSize, gridSize, gridSize), new Rectangle(i * gridSize, j * gridSize, gridSize, gridSize), GameRef.Content);
+                    newTile.Type = tileType[j][i];
+
+                    /*if (tileType[j][i] != 0)
+                    {
+                        newTile.Type = 1;
+                    }*/
+
+                    //add tile image and type here
+                    tileRow.Add(newTile);
+                }
+                tiles.Add(tileRow);
+            }
+
+            playerShip.score = 10;
+            playerShip.Index = new Vector2(5, 3);
+            playerShip.Position = playerShip.Index;
+            playerShip.ghostShips.Clear();
+
+
+            LoadContent();
         }
 
         public void checkWin()

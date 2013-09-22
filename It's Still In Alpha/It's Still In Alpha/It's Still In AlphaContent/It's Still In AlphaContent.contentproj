@@ -100,8 +100,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Maps\level1.txt">
-      <Name>level1</Name>
+    <None Include="Maps\Level 1.txt">
+      <Name>Level 1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -156,6 +156,12 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Maps\Level 2.txt">
+      <Name>Level 2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <Target Name="BeforeBuild">

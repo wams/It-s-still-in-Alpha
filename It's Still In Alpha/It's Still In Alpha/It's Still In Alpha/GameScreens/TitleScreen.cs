@@ -39,7 +39,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         {
             if (InputHandler.KeyPressed(Keys.D1))
             {
-                StateManager.ChangeState(GameRef.playScreen);
+                StateManager.PushState(GameRef.levelSelect);
             }
 
             if (InputHandler.KeyReleased(Keys.Escape))

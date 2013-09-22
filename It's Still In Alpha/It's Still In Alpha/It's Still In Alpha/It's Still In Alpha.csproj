@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameScreens\LevelSelect.cs" />
     <Compile Include="Sounds.cs" />
     <Compile Include="GhostShip.cs" />
     <Compile Include="Util.cs" />

@@ -26,6 +26,7 @@ namespace It_s_Still_In_Alpha
         public GameStateManager stateManager;
         public TitleScreen titleScreen;
         public PlayScreen playScreen;
+        public LevelSelect levelSelect;
 
         #region Screen Properties
 
@@ -62,6 +63,7 @@ namespace It_s_Still_In_Alpha
 
             titleScreen = new TitleScreen(this, stateManager);
             playScreen = new PlayScreen(this, stateManager);
+            levelSelect = new LevelSelect(this, stateManager);
 
             stateManager.ChangeState(titleScreen);
         }
