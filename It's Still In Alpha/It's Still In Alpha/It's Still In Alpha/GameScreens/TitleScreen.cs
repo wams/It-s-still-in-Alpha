@@ -42,7 +42,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 StateManager.PushState(GameRef.levelSelect);
             }
 
-            if (InputHandler.KeyReleased(Keys.Escape))
+            if (InputHandler.KeyPressed(Keys.Escape))
             {
                 GameRef.Exit();
             }

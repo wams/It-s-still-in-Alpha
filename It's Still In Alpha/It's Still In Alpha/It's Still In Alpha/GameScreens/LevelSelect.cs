@@ -60,7 +60,7 @@ namespace It_s_Still_In_Alpha.GameScreens
 
             if (InputHandler.KeyPressed(Keys.Escape))
             {
-                StateManager.PopState();
+                StateManager.ChangeState(GameRef.titleScreen);
             }
 
             base.Update(gameTime);
