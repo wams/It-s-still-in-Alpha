@@ -20,7 +20,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         #region Map Region
 
         List<List<Tile>> tiles;
-        List<List<int>> tileType;
+        List<List<char>> tileType;
 
         const int gridSize = 96;
         #endregion
@@ -56,12 +56,12 @@ namespace It_s_Still_In_Alpha.GameScreens
                 {
                     
                     Tile newTile = new Tile(new Rectangle(i*gridSize, j*gridSize, gridSize, gridSize), new Rectangle(i*gridSize, j*gridSize, gridSize, gridSize), GameRef.Content);
-                    newTile.Type = 0;
+                    newTile.Type = tileType[j][i];
 
-                    if (tileType[j][i] != 0)
+                    /*if (tileType[j][i] != 0)
                     {
                         newTile.Type = 1;
-                    }
+                    }*/
 
                     //add tile image and type here
                     tileRow.Add(newTile);
@@ -82,22 +82,22 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         #region My Functions
 
-        List<List<int>> ReadFromFile(string levelName)
+        List<List<char>> ReadFromFile(string levelName)
         {
-            List<List<int>> tileType = new List<List<int>>();
+            List<List<char>> tileType = new List<List<char>>();
 
             StreamReader levelFile = new StreamReader("Content/Maps/" + levelName);
 
             string line;
             while ((line = levelFile.ReadLine()) != null)
             {
-                List<int> row = new List<int>();
+                List<char> row = new List<char>();
 
                 string[] splitLine = line.Split(' ');
 
                 for (int i = 0; i < splitLine.Length; i++)
                 {
-                    row.Add(Convert.ToInt32(splitLine[i]));
+                    row.Add(Convert.ToChar(splitLine[i]));
                 }
 
                 tileType.Add(row);
@@ -127,13 +127,39 @@ namespace It_s_Still_In_Alpha.GameScreens
                 {
                     switch (tile.Type)
                     {
-                        case 0:
+                        case 'a':
                             counter++;
                             tile.score = 100;
                             tile.LoadContent("empty_space");
+                            tile.SourceRect = new Rectangle(0, 0, tile.tileImage.Bounds.Width, tile.tileImage.Bounds.Width);
                             break;
-                        case 1:
+                        case 'b':
                             tile.LoadContent("wall_1x1");
+                            tile.SourceRect = new Rectangle(0, 0, tile.tileImage.Bounds.Width, tile.tileImage.Bounds.Width);
+                            break;
+                        case 'c':
+                            tile.LoadContent("wall_2x2");
+                            tile.SourceRect = new Rectangle(0, 0, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height/2);
+                            break;
+                        case 'd':
+                            tile.LoadContent("wall_2x2");
+                            tile.SourceRect = new Rectangle(tile.tileImage.Bounds.Width/2, 0, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height/2);
+                            break;
+                        case 'e':
+                            tile.LoadContent("wall_2x2");
+                            tile.SourceRect = new Rectangle(0, tile.tileImage.Bounds.Height/2, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height/2);
+                            break;
+                        case 'f':
+                            tile.LoadContent("wall_2x2");
+                            tile.SourceRect = new Rectangle(tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height/2, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height/2);
+                            break;
+                        case 'g':
+                            tile.LoadContent("wall_2x1_astroidBelt1");
+                            tile.SourceRect = new Rectangle(0, 0, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height);
+                            break;
+                        case 'h':
+                            tile.LoadContent("wall_2x1_astroidBelt1");
+                            tile.SourceRect = new Rectangle(tile.tileImage.Bounds.Width/2, 0, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height);
                             break;
                         default:
                             break;

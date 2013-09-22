@@ -19,29 +19,27 @@ namespace It_s_Still_In_Alpha
         private Rectangle destRect;
         public bool visited = false;
         public int score = 0;
-        private int type;
+        private char type;
 
         public Rectangle SourceRect
         {
             get { return sourceRect; }
             set { sourceRect = value; }
-        }
-
-        
+        }     
 
         public Rectangle DestRect
         {
             get { return destRect; }
             set { destRect = value; }
         }
-        public int Type
+        public char Type
         {
             get { return type; }
             set { type = value; }
         }
 
-        private Texture2D tileImage;
-
+        public Texture2D tileImage;
+        
         public Tile(Rectangle source, Rectangle dest, ContentManager content)
         {
             SourceRect = source;
@@ -68,7 +66,7 @@ namespace It_s_Still_In_Alpha
             //add image support later
 
             //the color.white below is a way to shift the hue of any texture, leave it white to keep original colors
-            spriteBatch.Draw(tileImage, DestRect, Color.White);
+            spriteBatch.Draw(tileImage, DestRect, SourceRect, Color.White);
         }
     }
 }

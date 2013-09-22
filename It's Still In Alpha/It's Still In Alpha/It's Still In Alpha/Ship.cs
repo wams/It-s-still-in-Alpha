@@ -108,7 +108,7 @@ namespace It_s_Still_In_Alpha
         {
             if ((int)Index.X >= 0 && (int)Index.Y >= 0 && (int)Index.X < tiles.Count && (int)Index.Y < tiles[0].Count)
             {
-                if (tiles[(int)Index.X][(int)Index.Y].Type != 0)
+                if (tiles[(int)Index.X][(int)Index.Y].Type != 'a')
                 {
                     StopMoving = true;
                     switch (Direction)
