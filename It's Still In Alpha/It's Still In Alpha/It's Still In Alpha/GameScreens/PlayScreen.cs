@@ -69,6 +69,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 tiles.Add(tileRow);
             }
             Sounds.playGameSong();
+            score_tiles();
 
             playerShip = new Player(GameRef);
             playerShip.Index = new Vector2(5, 3);
@@ -135,10 +136,9 @@ namespace It_s_Still_In_Alpha.GameScreens
             playerShip.score = 10;
             playerShip.Index = new Vector2(5, 3);
             playerShip.Position = playerShip.Index;
-            playerShip.ghostShips.Clear();
-
 
             LoadContent();
+            score_tiles();
         }
 
         public void checkWin()
@@ -146,6 +146,52 @@ namespace It_s_Still_In_Alpha.GameScreens
             if (counter == 0)
             {
                 //you have won the game exit
+            }
+        }
+
+        private void score_tiles()
+        {
+            for (int x = 0; x < tiles.Count; x++)
+            {
+                for (int y = 0; y < tiles[0].Count; y++)
+                {
+                    int count = num_of_surrounding_empty_tiles(x, y);
+                    if (count > 0)
+                        tiles[x][y].Score *= (int)Math.Pow(10, count);
+                }
+            }
+        }
+
+        private bool is_tile_not_empty(int x, int y)
+        {
+            if (x >= 0 && x < tiles.Count && y >= 0 && y < tiles[0].Count)
+            {
+                return tiles[x][y].Type != 'a';
+            }
+            return false;
+        }
+
+        private int num_of_surrounding_empty_tiles(int x, int y)
+        {
+            int count = 0;
+            for (double a = 0; a < Math.PI*2; a += Math.PI / 2)
+            {
+                if ( is_tile_not_empty( x+(int)Math.Cos(a), y+(int)Math.Sin(a) ) )
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        private void updateScores()
+        {
+            foreach (Player player in Player.all_player_ships)
+            {
+                if (player.update_score(tiles))
+                {
+                    counter--;
+                }
             }
         }
         #endregion
@@ -164,7 +210,6 @@ namespace It_s_Still_In_Alpha.GameScreens
                     {
                         case 'a':
                             counter++;
-                            tile.score = 100;
                             tile.LoadContent("empty_space");
                             tile.SourceRect = new Rectangle(0, 0, tile.tileImage.Bounds.Width, tile.tileImage.Bounds.Width);
                             break;
@@ -220,9 +265,12 @@ namespace It_s_Still_In_Alpha.GameScreens
             }
 
             Ship.update_all_ships(gameTime);
+            Player.check_for_turned_players();
             Ship.tile_collision_all_ships(tiles);
             Ship.collision_all_ships();
-            counter = playerShip.setScore(tiles,counter);
+            
+            updateScores();
+            
             checkWin();
             base.Update(gameTime);
         }
@@ -293,6 +341,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         #region Input Functions
         private void back_to_title_screen(GameTime gameTime)
         {
+            Ship.reset();
             StateManager.PushState(GameRef.titleScreen);
         }
         #endregion

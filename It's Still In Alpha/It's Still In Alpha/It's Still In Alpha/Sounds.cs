@@ -86,5 +86,13 @@ namespace It_s_Still_In_Alpha
             big.Play();
         }
 
+        public static void stop()
+        {
+            MediaPlayer.Stop();
+            pickUp.Dispose();
+            small.Dispose();
+            big.Dispose();
+        }
+
     }
 }

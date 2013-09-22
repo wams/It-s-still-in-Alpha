@@ -14,15 +14,24 @@ namespace It_s_Still_In_Alpha
     class Player : Ship
     {
         public List<GhostShip> ghostShips = new List<GhostShip>();
+        public List<Tile> pickedUpTiles = new List<Tile>();
         public static List<Player> all_player_ships = new List<Player>();
         public int score;
+        public bool has_turned = false;
+        Facing old_dir;
+        Vector2 old_pos;
 
         public Player(Game1 gameRef)
             : base(gameRef)
         {
-            score = 10;
+            score = 0;
             shipImageName = "player_ship";
             all_player_ships.Add(this);
+        }
+
+        public override void dispose()
+        {
+            ghostShips = null;
         }
 
         public override bool TileCollision(List<List<Tile>> tiles)
@@ -35,15 +44,22 @@ namespace It_s_Still_In_Alpha
             return false;
         }
 
-        public int setScore(List<List<Tile>> tiles,int counter)
+        public Tile current_tile(List<List<Tile>> tiles)
         {
-            if (!tiles[(int)Index.X][(int)Index.Y].visited)
+            return tiles[(int)Position.X][(int)Position.Y];
+        }
+
+        public bool update_score(List<List<Tile>> tiles)
+        {
+            Tile t = current_tile(tiles);
+            if ( !t.visited )
             {
-                score += tiles[(int)Index.X][(int)Index.Y].score;
-                tiles[(int)Index.X][(int)Index.Y].visited = true;
-                return counter--;
+                t.visited = true;
+                score += t.Score;
+                pickedUpTiles.Add(t);
+                return true;
             }
-            return counter;
+            return false;
         }
 
         public override void LoadContent(string image, Dictionary<string, List<Rectangle>> animation, string currentAnimation, int currentFrame)
@@ -65,18 +81,26 @@ namespace It_s_Still_In_Alpha
             base.Draw(spriteBatch);
         }
 
+        private void addGhostShip()
+        {
+            GhostShip ghost = new GhostShip( GameRef, this );
+            ghost.Direction = old_dir;
+            ghost.Position = old_pos;
+            ghost.SourceSize = SourceSize;
+            ghost.LoadContent();
+            ghost.Index = new Vector2((int)old_pos.X, (int)old_pos.Y);
+            ghostShips.Add(ghost);
+        }
+
         #region Input Functions
         private void set_direction_from_input(Facing dir)
         {
-            if ((int)Direction % 180 != (int)dir % 180)
+            if ((int)Direction % 180 != (int)dir % 180 && !has_turned )
             {
                 StopMoving = false;
-                GhostShip ghost = new GhostShip(GameRef, this);
-                ghost.Direction = Direction;
-                ghost.Position = Position;
-                ghost.SourceSize = SourceSize;
-                ghost.LoadContent();
-                ghostShips.Add(ghost);
+                has_turned = true;
+                old_dir = Direction;
+                old_pos = Position;
                 Direction = dir;
             }
         }
@@ -116,6 +140,26 @@ namespace It_s_Still_In_Alpha
         public new static void tile_collision_all_ships(List<List<Tile>> tiles)
         {
             tile_collision_ships(tiles, all_player_ships);
+        }
+
+        public void check_if_turned()
+        {
+            if (has_moved)
+            {
+                if (has_turned)
+                {
+                    addGhostShip();
+                }
+                has_turned = false;
+            }
+        }
+
+        public static void check_for_turned_players()
+        {
+            foreach (Player player in all_player_ships)
+            {
+                player.check_if_turned();
+            }
         }
     }
 }

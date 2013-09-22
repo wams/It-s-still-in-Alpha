@@ -33,6 +33,7 @@ namespace It_s_Still_In_Alpha
         #region Variables Region
 
         protected bool StopMoving = false;
+        protected bool has_moved = false;
         public double last_move_time = 0.0; 
 
         Texture2D shipImage;
@@ -111,28 +112,38 @@ namespace It_s_Still_In_Alpha
                 if (tiles[(int)Index.X][(int)Index.Y].Type != 'a')
                 {
                     StopMoving = true;
-                    switch (Direction)
-                    {
-                        case Ship.Facing.Up:
-                            position.Y += 1;
-                            index.Y += 1;
-                            break;
-                        case Ship.Facing.Down:
-                            position.Y -= 1;
-                            index.Y -= 1;
-                            break;
-                        case Ship.Facing.Left:
-                            position.X += 1;
-                            index.X += 1;
-                            break;
-                        case Ship.Facing.Right:
-                            position.X -= 1;
-                            index.X -= 1;
-                            break;
-                    }
+                    back_up();
                 }
             }
             return StopMoving;
+        }
+
+        public void back_up()
+        {
+            switch (Direction)
+            {
+                case Ship.Facing.Up:
+                    position.Y += 1;
+                    index.Y += 1;
+                    break;
+                case Ship.Facing.Down:
+                    position.Y -= 1;
+                    index.Y -= 1;
+                    break;
+                case Ship.Facing.Left:
+                    position.X += 1;
+                    index.X += 1;
+                    break;
+                case Ship.Facing.Right:
+                    position.X -= 1;
+                    index.X -= 1;
+                    break;
+            }
+        }
+
+        public virtual void dispose()
+        {
+            GameRef = null;
         }
 
         public virtual bool Collision(Ship ship) 
@@ -181,12 +192,20 @@ namespace It_s_Still_In_Alpha
                 {
                     double change_in_x = Util.cos(Util.degreesToRadians((double)direction));
                     double change_in_y = -Util.sin(Util.degreesToRadians((double)direction));
-                    last_move_time = gameTime.TotalGameTime.TotalSeconds; 
+                    last_move_time = gameTime.TotalGameTime.TotalSeconds;
                     position.X += (float)change_in_x;
                     position.Y += (float)change_in_y;
-                    
+                    has_moved = true;
                     index = new Vector2((int)Position.X, (int)Position.Y);
                 }
+                else
+                {
+                    has_moved = false;
+                }
+            }
+            else
+            {
+                has_moved = true;
             }
         }
 
@@ -255,6 +274,31 @@ namespace It_s_Still_In_Alpha
             {
                 ship.Collided();
             }
+        }
+
+        public static void dispose_ships<T>(List<T> ships) where T : Ship
+        {
+            foreach (Ship ship in ships)
+            {
+                ship.dispose();
+            }
+        }
+
+        public static void dispose_all_ships()
+        {
+            dispose_ships(all_ships);
+        }
+
+        public static void reset()
+        {
+            dispose_all_ships();
+            foreach (GhostShip gs in GhostShip.all_ghost_ships)
+            {
+                gs.originShip = null;
+            }
+            Ship.all_ships.Clear();
+            Player.all_player_ships.Clear();
+            GhostShip.all_ghost_ships.Clear();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace It_s_Still_In_Alpha
 
         public override bool TileCollision(List<List<Tile>> tiles)
         {
-            if (base.TileCollision(tiles))
+            if (base.TileCollision(tiles) && has_moved)
             {
                 StopMoving = false;
                 Direction = (Facing)((int)(Direction + 180) % 360);

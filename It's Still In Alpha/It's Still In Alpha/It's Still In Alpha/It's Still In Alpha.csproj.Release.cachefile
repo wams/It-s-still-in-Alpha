@@ -4,6 +4,7 @@ Content\Tiles\empty_space.xnb
 Content\Ships\ghost_ship.xnb
 Content\Tiles\wall_2x1_astroidBelt1.xnb
 Content\Tiles\wall_2x2.xnb
+Content\Tiles\red_particle_thing.xnb
 Content\Fonts\subtitleFont.xnb
 Content\Fonts\titleFont.xnb
 Content\Sounds\pick_up.xnb
@@ -14,7 +15,6 @@ Content\Sounds\lostInSpace.xnb
 Content\Sounds\win.xnb
 Content\Sounds\crash.xnb
 Content\Sounds\intro.xnb
-Content\Tiles\red_particle_thing.xnb
 Content\Sounds\credits.wma
 Content\Sounds\lostInSpace.wma
 Content\Sounds\win.wma

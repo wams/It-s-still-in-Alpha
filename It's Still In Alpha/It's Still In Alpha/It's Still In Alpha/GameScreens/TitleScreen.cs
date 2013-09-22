@@ -44,6 +44,7 @@ namespace It_s_Still_In_Alpha.GameScreens
 
             if (InputHandler.KeyPressed(Keys.Escape))
             {
+                Sounds.stop();
                 GameRef.Exit();
             }
 
