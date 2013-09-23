@@ -26,12 +26,15 @@ namespace It_s_Still_In_Alpha.GameScreens
         #endregion
 
         #region XNA Functions
-
+        private Texture2D orbImage;
+        private Texture2D shipImage;
         protected override void LoadContent()
         {
             ContentManager Content = GameRef.Content;
             GameRef.titleFont = Content.Load<SpriteFont>("Fonts/titleFont");
             GameRef.subtitleFont = Content.Load<SpriteFont>("Fonts/subtitleFont");
+            orbImage = Content.Load<Texture2D>("Tiles/wall_2x2_e1");
+            shipImage = Content.Load<Texture2D>("Ships/player_ship");
             base.LoadContent();
         }
 
@@ -55,9 +58,15 @@ namespace It_s_Still_In_Alpha.GameScreens
             GameRef.spriteBatch.Begin();
             GameRef.spriteBatch.GraphicsDevice.Clear(Color.Black);
             DrawText();
+            DrawImage();
             base.Draw(gameTime);
 
             GameRef.spriteBatch.End();
+        }
+        public void DrawImage()
+        {
+            GameRef.spriteBatch.Draw(orbImage, new Vector2(GameRef.screenRectangle.Center.X + 400, GameRef.screenRectangle.Center.Y - 300), Color.White);
+            GameRef.spriteBatch.Draw(shipImage, new Vector2(GameRef.screenRectangle.Center.X - 400, GameRef.screenRectangle.Center.Y - 250), Color.White);
         }
 
         public void DrawText()
