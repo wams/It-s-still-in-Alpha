@@ -71,30 +71,32 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         public void DrawText()
         {
+            Color titleColor = new Color(255, 255, 64);
+            Color mixColor = Color.Lerp(titleColor, Color.Violet, (float) 0.5);
             GameRef.spriteBatch.DrawString(GameRef.titleFont,
                 "It's still in Alpha",
                 new Vector2(GameRef.screenRectangle.Center.X - 340, GameRef.screenRectangle.Center.Y - 200),
-                Color.White);
+                mixColor);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Resume (Press 1)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y),
-                Color.White);
+                titleColor);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Start Game (Press 2)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 75),
-                Color.White);
+                titleColor);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Save (Press 3)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 150),
-                Color.White);
+                titleColor);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Load (Press 4)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 225),
-                Color.White);
+                titleColor);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Exit Game (Esc)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 375),
-                Color.White);
+                titleColor);
         }
 
         #endregion
