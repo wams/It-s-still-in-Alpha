@@ -37,6 +37,7 @@ namespace It_s_Still_In_Alpha
         public LevelSelect levelSelect;
         public bool in_state = false;
         public bool input_off = false;
+        public WinScreen winScreen;
 
         #region Screen Properties
 
@@ -74,6 +75,7 @@ namespace It_s_Still_In_Alpha
             titleScreen = new TitleScreen(this, stateManager);
             playScreen = new PlayScreen(this, stateManager);
             levelSelect = new LevelSelect(this, stateManager);
+            winScreen = new WinScreen(this, stateManager);
 
             stateManager.ChangeState(titleScreen);
         }

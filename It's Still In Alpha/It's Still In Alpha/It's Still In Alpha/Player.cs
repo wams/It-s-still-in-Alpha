@@ -57,11 +57,6 @@ namespace It_s_Still_In_Alpha
             return false;
         }
 
-        public override void LoadContent(string image, Dictionary<string, List<Rectangle>> animation, string currentAnimation, int currentFrame)
-        {
-            base.LoadContent(image, animation, currentAnimation, currentFrame);
-        }
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

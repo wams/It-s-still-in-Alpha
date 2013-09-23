@@ -67,14 +67,14 @@ namespace It_s_Still_In_Alpha.GameScreens
         public void DrawText()
         {
             GameRef.spriteBatch.DrawString(GameRef.titleFont,
-                "Game Title",
-                new Vector2(GameRef.screenRectangle.Center.X - 250, GameRef.screenRectangle.Center.Y - 200),
+                "It\'s Still in Alpha",
+                new Vector2(GameRef.screenRectangle.Center.X - 450, GameRef.screenRectangle.Center.Y - 200),
                 Color.Black);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont, 
-                "Resume (Press 1)", 
+                "New Game (Press 1)", 
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y), 
                 Color.Black);
-            GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
+            /*GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Start Game (Press 2)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 75),
                 Color.Black);
@@ -85,10 +85,10 @@ namespace It_s_Still_In_Alpha.GameScreens
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Load (Press 4)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 225),
-                Color.Black);
+                Color.Black);*/
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Exit Game (Esc)",
-                new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 375),
+                new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 75),
                 Color.Black);
         }   
 

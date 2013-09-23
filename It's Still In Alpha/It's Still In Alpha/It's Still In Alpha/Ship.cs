@@ -299,6 +299,9 @@ namespace It_s_Still_In_Alpha
             Ship.all_ships.Clear();
             Player.all_player_ships.Clear();
             GhostShip.all_ghost_ships.Clear();
+            Ship.all_ships = new List<Ship>();
+            Player.all_player_ships = new List<Player>();
+            GhostShip.all_ghost_ships = new List<GhostShip>();
         }
     }
 }

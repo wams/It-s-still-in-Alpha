@@ -125,6 +125,8 @@ public class Screen_MainMenu : Screen
 			Timeline iconT = new Timeline( "selected", false, 0.0f, 0.25f, E_TimerType.Stop, E_RestType.Start );
 			iconT.AddEffect( new TimelineEffect_Alpha( 0.0f, 1.0f, E_LerpType.SmoothStep ) );
 			icon.AddTimeline( iconT );
+
+            Sounds.playIntro();
 		}
 	}
 
@@ -153,6 +155,10 @@ public class Screen_MainMenu : Screen
 			else
 			if ( Menu.GetByValue() == 1 )
 			{
+                GameRef.stateManager.PushState(GameRef.levelSelect);
+                InputHandler.Reset();
+                GameRef.in_state = true;
+                GameRef.input_off = true;
 				//Logo.TimelineActive( "end_fade", true, false )
 
                 //UI.Screen.SetNextScreen( new Screen_LevelSelect() );

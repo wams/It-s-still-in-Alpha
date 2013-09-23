@@ -65,6 +65,7 @@ namespace It_s_Still_In_Alpha.GameScreens
                 {
                     GameRef.playScreen.LoadLevel(levelSelected);
                     StateManager.ChangeState(GameRef.playScreen);
+                    first = true;
                 }
 
                 if (InputHandler.KeyPressed(Keys.Escape))
