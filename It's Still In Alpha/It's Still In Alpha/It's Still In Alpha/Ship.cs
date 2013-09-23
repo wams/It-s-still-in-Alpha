@@ -67,7 +67,7 @@ namespace It_s_Still_In_Alpha
             set { sourceSize = value; }
         }
 
-        double speed = 2.0;
+        double speed = 1.25;
         public double Speed
         {
             get { return speed; }

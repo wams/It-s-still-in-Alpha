@@ -99,7 +99,7 @@ namespace It_s_Still_In_Alpha
         {
             GameRef.spriteBatch.DrawString(GameRef.titleFont,
                 score.ToString(),
-                new Vector2(GameRef.screenRectangle.Center.X + 650, GameRef.screenRectangle.Center.Y + 400),
+                new Vector2(GameRef.screenRectangle.Center.X + 450, GameRef.screenRectangle.Center.Y + 400),
                 Color.Yellow);
 
             //GameRef.spriteBatch.Draw(shipImage, Position*SourceSize, Color.White);
