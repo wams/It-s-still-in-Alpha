@@ -19,7 +19,7 @@ public class Screen_MainMenu : Screen
 		logo.Position = new Vector3( _UI.SXM, _UI.SYM - 65.0f, 0.0f );
 		logo.Size = new Vector3( _UI.SY / 3.0f, _UI.SY / 3.0f, 0.0f );
 		logo.Align = E_Align.BottomCentre;
-		logo.ColorBase = new SpriteColors( Color.Orange, Color.Orange, Color.Black, Color.Black );
+		logo.ColorBase = new SpriteColors( Color.Brown, Color.Orange, Color.Black, Color.Black );
 		logo.AddTexture( "null", 0.0f, 0.0f, 1.0f, 1.0f );
 		Add( logo );
 
@@ -137,6 +137,8 @@ public class Screen_MainMenu : Screen
 			if ( Menu.GetByValue() == 0 )
 			{
 				_UI.Screen.AddScreen( new Screen_Popup( E_PopupType.NewGame ) );
+                // Create New Game
+                // Need implementation
 			}
 			else
 			if ( Menu.GetByValue() == 1 )

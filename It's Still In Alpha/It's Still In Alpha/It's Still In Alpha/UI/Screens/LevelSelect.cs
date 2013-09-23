@@ -203,7 +203,7 @@ public class Screen_LevelSelect : Screen
 					text.String = "" + ( ( j * numCols ) + k + 1 );
 					text.Parent( graphic );
 					text.ParentAttach = E_Align.MiddleCentre;
-					text.ColorBase = Color.Yellow;
+					text.ColorBase = Color.Purple;
 					text.Alpha = 0.0f;
 					Add( text );
 
