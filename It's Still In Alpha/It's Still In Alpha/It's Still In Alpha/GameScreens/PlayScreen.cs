@@ -28,7 +28,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         #region Variables Region
 
         Player playerShip;
-        int counter;
+        int counter = 0;
 
         #endregion
 
@@ -109,6 +109,8 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         public void LoadLevel(string levelName)
         {
+            counter = 0;
+
             tiles = new List<List<Tile>>();
 
             tileType = ReadFromFile(levelName);
@@ -143,9 +145,12 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         public void checkWin()
         {
-            if (counter == 0)
+            if (counter <= 0)
             {
                 //you have won the game exit
+                //Set the score in WinScreen, and switch to it.
+                GameRef.winScreen.Score = playerShip.score;
+                StateManager.ChangeState(GameRef.winScreen);
             }
         }
 
@@ -201,7 +206,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         protected override void LoadContent()
         {
             ContentManager Content = GameRef.Content;
-
+            counter = 0;
             foreach (List<Tile> tileRow in tiles)
             {
                 foreach (Tile tile in tileRow)
