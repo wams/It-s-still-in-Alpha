@@ -54,6 +54,7 @@ namespace It_s_Still_In_Alpha.GameScreens
 
             if (InputHandler.KeyPressed(Keys.Enter))
             {
+                GameRef.titleScreen = new TitleScreen(GameRef, GameRef.stateManager);
                 GameRef.playScreen.LoadLevel(levelSelected);
                 StateManager.ChangeState(GameRef.playScreen);
             }
