@@ -65,15 +65,15 @@ namespace It_s_Still_In_Alpha.GameScreens
         }
         public void DrawImage()
         {
-            GameRef.spriteBatch.Draw(orbImage, new Vector2(GameRef.screenRectangle.Center.X + 400, GameRef.screenRectangle.Center.Y - 300), Color.White);
-            GameRef.spriteBatch.Draw(shipImage, new Vector2(GameRef.screenRectangle.Center.X - 400, GameRef.screenRectangle.Center.Y - 250), Color.White);
+            GameRef.spriteBatch.Draw(orbImage, new Vector2(GameRef.screenRectangle.Center.X + 500, GameRef.screenRectangle.Center.Y - 300), Color.White);
+            GameRef.spriteBatch.Draw(shipImage, new Vector2(GameRef.screenRectangle.Center.X - 490, GameRef.screenRectangle.Center.Y - 250), Color.White);
         }
 
         public void DrawText()
         {
             GameRef.spriteBatch.DrawString(GameRef.titleFont,
-                "Game Title",
-                new Vector2(GameRef.screenRectangle.Center.X - 250, GameRef.screenRectangle.Center.Y - 200),
+                "It's still in Alpha",
+                new Vector2(GameRef.screenRectangle.Center.X - 340, GameRef.screenRectangle.Center.Y - 200),
                 Color.White);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Resume (Press 1)",
