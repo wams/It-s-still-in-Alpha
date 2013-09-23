@@ -4,6 +4,7 @@
 //-----------------------------------------------
 
 using Microsoft.Xna.Framework;
+using It_s_Still_In_Alpha;
 
 namespace UI
 {
@@ -12,9 +13,11 @@ namespace UI
 public class Screen_Start : Screen
 {
 	// Screen_Start
-	public Screen_Start()
+    Game1 GameRef;
+	public Screen_Start( Game1 gameRef)
 		: base( "Start" )
 	{
+        GameRef = gameRef;
 		WidgetGraphic logo = new WidgetGraphic();
 		logo.Position = new Vector3( _UI.SXM, _UI.SYM, 0.0f );
 		logo.Size = new Vector3( _UI.SY / 3.0f, _UI.SY / 3.0f, 0.0f );
@@ -64,7 +67,7 @@ public class Screen_Start : Screen
 			_G.UI.MM_FromStartScreen = true;
 
 			_UI.PrimaryPad = input.Controller.PadIndex;
-			_UI.Screen.SetNextScreen( new Screen_MainMenu() );
+			_UI.Screen.SetNextScreen( new Screen_MainMenu( GameRef ) );
 		}
 	}
 };

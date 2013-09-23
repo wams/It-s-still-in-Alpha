@@ -394,7 +394,7 @@ public class Screen_LevelSelect : Screen
 			{
 				Backgrounds[ CurrentBackground ].Selected( false, false, true );
 				_G.UI.MM_FromLevelSelect = true;
-				_UI.Screen.SetNextScreen( new Screen_MainMenu() );
+				//_UI.Screen.SetNextScreen( new Screen_MainMenu( GameRef ) );
 			}
 		}
 	}

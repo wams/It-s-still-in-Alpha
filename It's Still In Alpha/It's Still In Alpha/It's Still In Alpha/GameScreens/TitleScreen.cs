@@ -29,36 +29,39 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         protected override void LoadContent()
         {
-            ContentManager Content = GameRef.Content;
-            GameRef.titleFont = Content.Load<SpriteFont>("Fonts/titleFont");
-            GameRef.subtitleFont = Content.Load<SpriteFont>("Fonts/subtitleFont");
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (InputHandler.KeyPressed(Keys.D1))
+            if (GameRef.in_state)
             {
-                StateManager.PushState(GameRef.levelSelect);
-            }
+                if (InputHandler.KeyPressed(Keys.D1))
+                {
+                    StateManager.PushState(GameRef.levelSelect);
+                }
 
-            if (InputHandler.KeyPressed(Keys.Escape))
-            {
-                Sounds.stop();
-                GameRef.Exit();
-            }
+                if (InputHandler.KeyPressed(Keys.Escape))
+                {
+                    Sounds.stop();
+                    GameRef.Exit();
+                }
 
-            base.Update(gameTime);
+                base.Update(gameTime);
+            }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            GameRef.spriteBatch.Begin();
-            GameRef.spriteBatch.GraphicsDevice.Clear(Color.Green);
-            DrawText();
-            base.Draw(gameTime);
-            
-            GameRef.spriteBatch.End();
+            if (GameRef.in_state)
+            {
+                GameRef.spriteBatch.Begin();
+                GameRef.spriteBatch.GraphicsDevice.Clear(Color.Green);
+                DrawText();
+                base.Draw(gameTime);
+
+                GameRef.spriteBatch.End();
+            }
         }
         
         public void DrawText()

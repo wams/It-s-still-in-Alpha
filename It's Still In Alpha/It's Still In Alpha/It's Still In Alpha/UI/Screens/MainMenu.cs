@@ -4,6 +4,9 @@
 //-----------------------------------------------
 
 using Microsoft.Xna.Framework;
+using It_s_Still_In_Alpha.GameStates;
+using It_s_Still_In_Alpha.GameScreens;
+using It_s_Still_In_Alpha;
 
 namespace UI
 {
@@ -12,9 +15,11 @@ namespace UI
 public class Screen_MainMenu : Screen
 {
 	// Screen_MainMenu
-	public Screen_MainMenu()
+    Game1 GameRef;
+	public Screen_MainMenu( Game1 gameRef)
 		: base( "MainMenu" )
 	{
+        GameRef = gameRef;
 		WidgetGraphic logo = new WidgetGraphic();
 		logo.Position = new Vector3( _UI.SXM, _UI.SYM - 65.0f, 0.0f );
 		logo.Size = new Vector3( _UI.SY / 3.0f, _UI.SY / 3.0f, 0.0f );
@@ -136,15 +141,21 @@ public class Screen_MainMenu : Screen
 		{
 			if ( Menu.GetByValue() == 0 )
 			{
-				_UI.Screen.AddScreen( new Screen_Popup( E_PopupType.NewGame ) );
+                GameRef.stateManager.PushState(GameRef.levelSelect);
+                InputHandler.Reset();
+                GameRef.in_state = true;
+                GameRef.input_off = true;
+				//_UI.Screen.AddScreen( );
                 // Create New Game
                 // Need implementation
+
 			}
 			else
 			if ( Menu.GetByValue() == 1 )
 			{
-				Logo.TimelineActive( "end_fade", true, false );
-                //_UI.Screen.SetNextScreen( new Screen_LevelSelect() );
+				//Logo.TimelineActive( "end_fade", true, false )
+
+                //UI.Screen.SetNextScreen( new Screen_LevelSelect() );
 			}
 			else
 			if ( Menu.GetByValue() == 2 )
@@ -152,9 +163,9 @@ public class Screen_MainMenu : Screen
                 //_UI.Screen.SetNextScreen( new Screen_Options() );
 			}
 			else
-			if ( Menu.GetByValue() == 3 )
+            if (Menu.GetByValue() == 3 )
 			{
-				_UI.Screen.AddScreen( new Screen_Popup( E_PopupType.Quit ) );
+                GameRef.Exit();
 			}
 		}
 		else
@@ -165,7 +176,7 @@ public class Screen_MainMenu : Screen
 			Logo.TimelineActive( "end_move", true, false );
 			_G.UI.SS_FromMainMenu = true;
 			
-			_UI.Screen.SetNextScreen( new Screen_Start() );
+			_UI.Screen.SetNextScreen( new Screen_Start( GameRef ) );
 		}
 	}
 
@@ -178,7 +189,7 @@ public class Screen_MainMenu : Screen
 		{
 			switch ( (E_PopupType)message.Data )
 			{
-				case E_PopupType.NewGame:	/* new game logic here */ 		break;
+				case E_PopupType.NewGame:	 		break;
 				case E_PopupType.Quit:		_UI.Game.Exit();				break;
 			}
 		}

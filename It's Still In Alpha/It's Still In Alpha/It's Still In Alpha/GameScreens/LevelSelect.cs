@@ -19,8 +19,9 @@ namespace It_s_Still_In_Alpha.GameScreens
     {
         public string levelSelected;
         public int currentSelection;
+        public bool first = true;
 
-        List<string> allLevels = new List<string>() {"Level 1", "Level 2"};
+        public static List<string> allLevels = new List<string>() {"Level 1", "Level 2"};
 
         public LevelSelect(Game game, GameStateManager manager)
             : base(game, manager)
@@ -31,55 +32,67 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         public override void Update(GameTime gameTime)
         {
-            if (InputHandler.KeyPressed(Keys.Right) || InputHandler.KeyPressed(Keys.D))
+            if (first)
             {
-                currentSelection++;
-                if (currentSelection >= allLevels.Count)
+                first = false;
+                InputHandler.Reset();
+                Console.WriteLine("Stuck");
+            }
+            else if (GameRef.in_state)
+            {
+                if (InputHandler.KeyPressed(Keys.Right) || InputHandler.KeyPressed(Keys.D))
                 {
-                    currentSelection = 0;
+                    currentSelection++;
+                    if (currentSelection >= allLevels.Count)
+                    {
+                        currentSelection = 0;
+                    }
+
+                    levelSelected = allLevels[currentSelection];
+                }
+                if (InputHandler.KeyPressed(Keys.Left) || InputHandler.KeyPressed(Keys.A))
+                {
+                    currentSelection--;
+                    if (currentSelection < 0)
+                    {
+                        currentSelection = allLevels.Count - 1;
+                    }
+
+                    levelSelected = allLevels[currentSelection];
                 }
 
-                levelSelected = allLevels[currentSelection];
-            }
-            if (InputHandler.KeyPressed(Keys.Left) || InputHandler.KeyPressed(Keys.A))
-            {
-                currentSelection--;
-                if (currentSelection < 0)
+                if (InputHandler.KeyPressed(Keys.Enter))
                 {
-                    currentSelection = allLevels.Count-1;
+                    GameRef.playScreen.LoadLevel(levelSelected);
+                    StateManager.ChangeState(GameRef.playScreen);
                 }
 
-                levelSelected = allLevels[currentSelection];
-            }
+                if (InputHandler.KeyPressed(Keys.Escape))
+                {
+                    GameRef.in_state = false;
+                    StateManager.ChangeState(GameRef.titleScreen);
+                }
 
-            if (InputHandler.KeyPressed(Keys.Enter))
-            {
-                GameRef.playScreen.LoadLevel(levelSelected);
-                StateManager.ChangeState(GameRef.playScreen);
+                base.Update(gameTime);
             }
-
-            if (InputHandler.KeyPressed(Keys.Escape))
-            {
-                StateManager.ChangeState(GameRef.titleScreen);
-            }
-
-            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            GameRef.spriteBatch.Begin();
-            GameRef.GraphicsDevice.Clear(Color.Black);
+            if (GameRef.in_state)
+            {
+                GameRef.spriteBatch.Begin();
+                GameRef.GraphicsDevice.Clear(Color.Black);
 
-            GameRef.spriteBatch.DrawString(GameRef.subtitleFont, levelSelected, 
-                new Vector2(GameRef.screenRectangle.Center.X-25, GameRef.screenRectangle.Center.Y), Color.White);
+                GameRef.spriteBatch.DrawString(GameRef.subtitleFont, levelSelected,
+                    new Vector2(GameRef.screenRectangle.Center.X - 25, GameRef.screenRectangle.Center.Y), Color.White);
 
-            GameRef.spriteBatch.DrawString(GameRef.subtitleFont, "Press Enter to play selected level\n(left and right changes selection)",
-                new Vector2(GameRef.screenRectangle.Center.X-175, GameRef.screenRectangle.Center.Y+50), Color.White);
+                GameRef.spriteBatch.DrawString(GameRef.subtitleFont, "Press Enter to play selected level\n(left and right changes selection)",
+                    new Vector2(GameRef.screenRectangle.Center.X - 175, GameRef.screenRectangle.Center.Y + 50), Color.White);
 
-            GameRef.spriteBatch.End();
-
-            base.Draw(gameTime);
+                GameRef.spriteBatch.End();
+                base.Draw(gameTime);
+            }
         }
     }
 }

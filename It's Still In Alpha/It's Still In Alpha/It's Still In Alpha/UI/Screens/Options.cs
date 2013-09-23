@@ -160,8 +160,8 @@ public class Screen_Options : Screen
 	// OnProcessInput
 	protected override void OnProcessInput( Input input )
 	{
-		if ( input.ButtonJustPressed( (int)E_UiButton.B ) )
-			_UI.Screen.SetNextScreen( new Screen_MainMenu() );
+		//if ( input.ButtonJustPressed( (int)E_UiButton.B ) )
+			//_UI.Screen.SetNextScreen( new Screen_MainMenu( GameRef ) );
 	}
 
 	//

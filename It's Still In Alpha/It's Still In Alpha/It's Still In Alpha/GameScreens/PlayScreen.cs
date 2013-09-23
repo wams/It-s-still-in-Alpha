@@ -244,46 +244,52 @@ namespace It_s_Still_In_Alpha.GameScreens
 
         public override void Update(GameTime gameTime)
         {
-            process_input(gameTime);
-
-            foreach (List<Tile> tileRow in tiles)
+            if (GameRef.in_state)
             {
-                foreach (Tile tile in tileRow)
-                {
-                    tile.Update(gameTime);
-                }
-            }
+                process_input(gameTime);
 
-            Ship.update_all_ships(gameTime);
-            Player.check_for_turned_players();
-            Ship.tile_collision_all_ships(tiles);
-            Ship.collision_all_ships();
-            
-            updateScores();
-            
-            checkWin();
-            base.Update(gameTime);
+                foreach (List<Tile> tileRow in tiles)
+                {
+                    foreach (Tile tile in tileRow)
+                    {
+                        tile.Update(gameTime);
+                    }
+                }
+
+                Ship.update_all_ships(gameTime);
+                Player.check_for_turned_players();
+                Ship.tile_collision_all_ships(tiles);
+                Ship.collision_all_ships();
+
+                updateScores();
+
+                checkWin();
+                base.Update(gameTime);
+            }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            GameRef.spriteBatch.Begin();
-            
-            GameRef.GraphicsDevice.Clear(Color.Black);
-
-            foreach (List<Tile> tileRow in tiles)
+            if (GameRef.in_state)
             {
-                foreach (Tile tile in tileRow)
+                GameRef.spriteBatch.Begin();
+
+                GameRef.GraphicsDevice.Clear(Color.Black);
+
+                foreach (List<Tile> tileRow in tiles)
                 {
-                    tile.Draw(GameRef.spriteBatch);
+                    foreach (Tile tile in tileRow)
+                    {
+                        tile.Draw(GameRef.spriteBatch);
+                    }
                 }
+
+                Ship.draw_all_ships(GameRef.spriteBatch);
+
+                base.Draw(gameTime);
+
+                GameRef.spriteBatch.End();
             }
-
-            Ship.draw_all_ships(GameRef.spriteBatch);
-
-            base.Draw(gameTime);
-
-            GameRef.spriteBatch.End();
         }
         #endregion
 
@@ -332,6 +338,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         private void back_to_title_screen(GameTime gameTime)
         {
             Ship.reset();
+            GameRef.in_state = false;
             StateManager.PushState(GameRef.titleScreen);
         }
         #endregion

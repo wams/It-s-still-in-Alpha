@@ -5,6 +5,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using It_s_Still_In_Alpha;
 
 // E_UiMessageType
 public enum E_UiMessageType
@@ -18,10 +19,12 @@ public enum E_UiMessageType
 // class UiLayer
 public class UiLayer : Layer
 {
+    Game1 GameRef;
 	// UiLayer
-	public UiLayer()
+	public UiLayer( Game1 gameRef )
 		: base( (int)E_Layer.UI )
 	{
+        GameRef = gameRef;
 		//
 	}
 
@@ -59,7 +62,7 @@ public class UiLayer : Layer
 
 		// add initial screens
 		_UI.Screen.AddScreen( new UI.Screen_Background() );
-		_UI.Screen.AddScreen( new UI.Screen_Start() );
+		_UI.Screen.AddScreen( new UI.Screen_Start( GameRef ) );
 	}
 
 	// Shutdown
@@ -71,6 +74,7 @@ public class UiLayer : Layer
 	// OnUpdate
 	protected override void OnUpdate( float frameTime )
 	{
+        GameRef.input_off = false;
 	#if !RELEASE
 		if ( _UI.DebugMenuActive )
 			return;

@@ -17,6 +17,7 @@ namespace It_s_Still_In_Alpha
     /// </summary>
     public class InputHandler : Microsoft.Xna.Framework.GameComponent
     {
+        public static Game1 GameRef;
         #region Variable Region
 
         static KeyboardState keyboardState;
@@ -66,9 +67,10 @@ namespace It_s_Still_In_Alpha
 
         #region Constructor Region
 
-        public InputHandler(Game game)
+        public InputHandler(Game1 game)
             : base(game)
         {
+            GameRef = game;
             keyboardState = Keyboard.GetState();
             mouseState = Mouse.GetState();
 
@@ -129,18 +131,18 @@ namespace It_s_Still_In_Alpha
         public static bool KeyReleased(Keys key)
         {
             return keyboardState.IsKeyUp(key) &&
-                prevKeyboardState.IsKeyDown(key);
+                prevKeyboardState.IsKeyDown(key) && GameRef.in_state;
         }
 
         public static bool KeyPressed(Keys key)
         {
             return keyboardState.IsKeyDown(key) &&
-                prevKeyboardState.IsKeyUp(key);
+                prevKeyboardState.IsKeyUp(key) && GameRef.in_state;
         }
 
         public static bool KeyHeld(Keys key)
         {
-            return keyboardState.IsKeyDown(key);
+            return keyboardState.IsKeyDown(key) && GameRef.in_state;
         }
 
         #endregion
@@ -156,18 +158,18 @@ namespace It_s_Still_In_Alpha
         public static bool ButtonReleased(Buttons button, PlayerIndex index)
         {
             return gamePadStates[(int)index].IsButtonUp(button) &&
-                prevGamePadStates[(int)index].IsButtonDown(button);
+                prevGamePadStates[(int)index].IsButtonDown(button)&&GameRef.in_state;
         }
 
         public static bool ButtonPressed(Buttons button, PlayerIndex index)
         {
             return gamePadStates[(int)index].IsButtonDown(button) &&
-                prevGamePadStates[(int)index].IsButtonUp(button);
+                prevGamePadStates[(int)index].IsButtonUp(button) && GameRef.in_state;
         }
 
         public static bool ButtonHeld(Buttons button, PlayerIndex index)
         {
-            return gamePadStates[(int)index].IsButtonDown(button);
+            return gamePadStates[(int)index].IsButtonDown(button) && GameRef.in_state;
         }
 
         #endregion

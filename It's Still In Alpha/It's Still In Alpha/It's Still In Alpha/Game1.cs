@@ -35,13 +35,14 @@ namespace It_s_Still_In_Alpha
         public TitleScreen titleScreen;
         public PlayScreen playScreen;
         public LevelSelect levelSelect;
+        public bool in_state = false;
+        public bool input_off = false;
 
         #region Screen Properties
 
         const int screenWidth = 96 * 20;
         const int screenHeight = 96 * 12;
-
-        bool fullscreen = false;
+        bool fullscreen = false;//true;
 
         public readonly Rectangle screenRectangle;
 
@@ -74,7 +75,7 @@ namespace It_s_Still_In_Alpha
             playScreen = new PlayScreen(this, stateManager);
             levelSelect = new LevelSelect(this, stateManager);
 
-            //stateManager.ChangeState(titleScreen);
+            stateManager.ChangeState(titleScreen);
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace It_s_Still_In_Alpha
 		    Components.Add( new GamerServicesComponent( this ) );
 
 		    // add layers
-		    UiLayer = new UiLayer();
+		    UiLayer = new UiLayer( this );
 		    _G.UI = UiLayer;
 
 		    // add other components
@@ -118,6 +119,9 @@ namespace It_s_Still_In_Alpha
 	    #if !RELEASE
 		    //_UI.SetupDebugMenu( null );
 	    #endif
+
+            titleFont = Content.Load<SpriteFont>("Fonts/titleFont");
+            subtitleFont = Content.Load<SpriteFont>("Fonts/subtitleFont");
 
 		    base.LoadContent();
 
@@ -146,35 +150,37 @@ namespace It_s_Still_In_Alpha
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
+            if (!in_state)
+            {
+                IsRunningSlowly = gameTime.IsRunningSlowly;
 
-            IsRunningSlowly = gameTime.IsRunningSlowly;
+                float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-		    float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                // update input
+                _G.GameInput.Update(frameTime);
 
-		    // update input
-		    _G.GameInput.Update( frameTime );
-		
-	    #if !RELEASE
-		    Input input = _G.GameInput.GetInput( 0 );
-		
-		    if ( input.ButtonJustPressed( (int)E_UiButton.Quit ) )
-			    this.Exit();
-	    #endif
+#if !RELEASE
+                Input input = _G.GameInput.GetInput(0);
 
-	    #if !RELEASE
-		    // update debug menu
-		    //_UI.DebugMenuActive = _UI.DebugMenu.Update( frameTime );
-	    #endif
+                if (input.ButtonJustPressed((int)E_UiButton.Quit)&&!input_off)
+                    this.Exit();
+#endif
 
-		    // TODO - other stuff here ...
+#if !RELEASE
+                // update debug menu
+                //_UI.DebugMenuActive = _UI.DebugMenu.Update( frameTime );
+#endif
 
-		    // update ui
-		    UiLayer.Update( frameTime );
+                // TODO - other stuff here ...
+
+                // update ui
+                UiLayer.Update(frameTime);
 
 
-            // TODO: Add your update logic here
+                // TODO: Add your update logic here
 
-            base.Update(gameTime);
+               
+            } base.Update(gameTime);
         }
 
         /// <summary>
@@ -190,7 +196,8 @@ namespace It_s_Still_In_Alpha
 		    // TODO - other stuff here ...
 
 		    // render ui
-		    UiLayer.Render( frameTime );
+            if(!in_state)
+		        UiLayer.Render( frameTime );
 
 	    #if !RELEASE
 		    // render debug menu
@@ -200,9 +207,19 @@ namespace It_s_Still_In_Alpha
 		    base.Draw( gameTime );
         }
 
-	    private UiLayer						UiLayer;
-
+	    public  UiLayer						UiLayer;
 	    public  bool						IsRunningSlowly;
+
+        public void controls_in_game()
+        {
+            Components.Add(new InputHandler(this));
+        }
+
+        public void controls_in_menu()
+        {
+            _G.GameInput = new GameInput((int)E_GameButton.Count, (int)E_GameAxis.Count);
+            GameControls.Setup(); // initialise mappings
+        }
 	//
     };
 };

@@ -39,11 +39,6 @@ namespace It_s_Still_In_Alpha
             return base.TileCollision(tiles);
         }
 
-        public override bool Collision(Ship ship)
-        {
-            return false;
-        }
-
         public Tile current_tile(List<List<Tile>> tiles)
         {
             return tiles[(int)Position.X][(int)Position.Y];
