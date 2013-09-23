@@ -31,9 +31,9 @@ public struct ScreenMessage
 public class ScreenManager
 {
 #if !RELEASE
-	static Debug.BoolD		d_ShowScreens	= new Debug.BoolD( "UI.ShowScreens", false );
-	static Debug.BoolD		d_ShowSafeArea	= new Debug.BoolD( "UI.ShowSafeArea", false );
-	static Debug.FloatD		d_TimeScale		= new Debug.FloatD( "UI.TimeScale", 1.0f, 0.0f, 5.0f, 0.05f );
+    //static Debug.BoolD		d_ShowScreens	= new Debug.BoolD( "UI.ShowScreens", false );
+	//static Debug.BoolD		d_ShowSafeArea	= new Debug.BoolD( "UI.ShowSafeArea", false );
+	//static Debug.FloatD		d_TimeScale		= new Debug.FloatD( "UI.TimeScale", 1.0f, 0.0f, 5.0f, 0.05f );
 #endif
 
 	// ScreenManager

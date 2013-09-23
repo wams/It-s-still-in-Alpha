@@ -73,7 +73,7 @@ public struct AutoTransform : IDisposable
 public class SpriteManager
 {
 #if !RELEASE
-	static Debug.BoolD d_ShowWireFrame = new Debug.BoolD( "UI.ShowWireFrame", false );
+	//static Debug.BoolD d_ShowWireFrame = new Debug.BoolD( "UI.ShowWireFrame", false );
 #endif
 
 	// SpriteManager

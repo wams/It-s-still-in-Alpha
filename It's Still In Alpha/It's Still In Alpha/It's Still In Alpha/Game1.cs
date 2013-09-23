@@ -74,7 +74,7 @@ namespace It_s_Still_In_Alpha
             playScreen = new PlayScreen(this, stateManager);
             levelSelect = new LevelSelect(this, stateManager);
 
-            stateManager.ChangeState(titleScreen);
+            //stateManager.ChangeState(titleScreen);
         }
 
         /// <summary>

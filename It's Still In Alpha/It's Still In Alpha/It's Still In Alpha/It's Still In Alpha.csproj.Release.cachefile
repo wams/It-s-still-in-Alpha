@@ -1,12 +1,15 @@
 Content\Ships\player_ship.xnb
 Content\Tiles\wall_1x1.xnb
 Content\Tiles\empty_space.xnb
+Content\Fonts\subtitleFont.xnb
+Content\Fonts\titleFont.xnb
+Content\Fonts\SegoeUI.xnb
+Content\Textures\UI_Box.xnb
+Content\Textures\player_ship.xnb
 Content\Ships\ghost_ship.xnb
 Content\Tiles\wall_2x1_astroidBelt1.xnb
 Content\Tiles\wall_2x2.xnb
 Content\Tiles\red_particle_thing.xnb
-Content\Fonts\subtitleFont.xnb
-Content\Fonts\titleFont.xnb
 Content\Sounds\pick_up.xnb
 Content\Sounds\small_boom.xnb
 Content\Sounds\big_boom.xnb
@@ -15,9 +18,6 @@ Content\Sounds\lostInSpace.xnb
 Content\Sounds\win.xnb
 Content\Sounds\crash.xnb
 Content\Sounds\intro.xnb
-Content\Fonts\SegoeUI.xnb
-Content\Textures\UI_Box.xnb
-Content\Textures\player_ship.xnb
 Content\Sounds\credits.wma
 Content\Sounds\lostInSpace.wma
 Content\Sounds\win.wma
