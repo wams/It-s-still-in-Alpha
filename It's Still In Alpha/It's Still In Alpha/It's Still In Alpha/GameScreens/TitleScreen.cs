@@ -65,27 +65,27 @@ namespace It_s_Still_In_Alpha.GameScreens
             GameRef.spriteBatch.DrawString(GameRef.titleFont,
                 "Game Title",
                 new Vector2(GameRef.screenRectangle.Center.X - 250, GameRef.screenRectangle.Center.Y - 200),
-                Color.Black);
+                Color.White);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Resume (Press 1)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y),
-                Color.Black);
+                Color.White);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Start Game (Press 2)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 75),
-                Color.Black);
+                Color.White);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Save (Press 3)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 150),
-                Color.Black);
+                Color.White);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Load (Press 4)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 225),
-                Color.Black);
+                Color.White);
             GameRef.spriteBatch.DrawString(GameRef.subtitleFont,
                 "Exit Game (Esc)",
                 new Vector2(GameRef.screenRectangle.Center.X - 100, GameRef.screenRectangle.Center.Y + 375),
-                Color.Black);
+                Color.White);
         }
 
         #endregion
