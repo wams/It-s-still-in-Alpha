@@ -1,6 +1,7 @@
 Content\Ships\player_ship.xnb
 Content\Tiles\wall_1x1.xnb
 Content\Tiles\empty_space.xnb
+<<<<<<< HEAD
 Content\Ships\ghost_ship.xnb
 Content\Tiles\wall_2x1_astroidBelt1.xnb
 Content\Tiles\wall_2x2.xnb
@@ -22,3 +23,22 @@ Content\Sounds\crash.wma
 Content\Sounds\intro.wma
 Content\Maps\Level 1.txt
 Content\Maps\Level 2.txt
+=======
+Content\Fonts\SegoeUI.xnb
+Content\Fonts\subtitleFont.xnb
+Content\Fonts\titleFont.xnb
+Content\Textures\UI_Box.xnb
+Content\Textures\player_ship.xnb
+Content\Fonts\SegoeUI.fnt
+Content\Textures\UI_Null.xnb
+Content\Debug\Debug_Menu.xnb
+Content\Effects\UI_GrayScale.xnb
+Content\Effects\UI_IntensityAsAlpha.xnb
+Content\Effects\UI_IntensityAsAlphaTexture.xnb
+Content\Effects\UI_IntensityAsAlphaTexture_PMA.xnb
+Content\Effects\UI_IntensityAsAlpha_PMA.xnb
+Content\Effects\UI_MultiTexture1.xnb
+Content\Effects\UI_MultiTexture2.xnb
+Content\Effects\UI_MultiTexture3.xnb
+Content\Debug\Debug_Font.xnb
+>>>>>>> origin/Wally

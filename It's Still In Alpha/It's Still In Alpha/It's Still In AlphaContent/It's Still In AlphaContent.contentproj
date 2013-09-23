@@ -85,6 +85,17 @@
       <Name>ghost_ship</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Fonts\SegoeUI.fnt">
+      <Name>SegoeUI</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Fonts\SegoeUI.tga">
+      <Name>SegoeUI</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +106,13 @@
     </Compile>
     <Compile Include="Tiles\wall_2x2.png">
       <Name>wall_2x2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\UI_Box.png">
+      <Name>UI_Box</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -166,6 +184,13 @@
   <ItemGroup>
     <Compile Include="Tiles\red_particle_thing.png">
       <Name>red_particle_thing</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\player_ship.png">
+      <Name>player_ship</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

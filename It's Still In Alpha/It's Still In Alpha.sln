@@ -3,20 +3,52 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "It's Still In Alpha", "It's Still In Alpha\It's Still In Alpha\It's Still In Alpha.csproj", "{CF1BB029-BF76-471A-A3DB-6F9733382D3D}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "It's Still In AlphaContent", "It's Still In Alpha\It's Still In AlphaContent\It's Still In AlphaContent.contentproj", "{7190FC61-F29C-40A8-8F4A-13CA34C8D88F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "It's Still In AlphaContent", "It's Still In Alpha\It's Still In AlphaContent\It's Still In AlphaContent.contentproj", "{7190FC61-F29C-40A8-8F4A-13CA34C8D88F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUI", "It's Still In Alpha\XUI\XUI.csproj", "{2F953A14-0E2F-4670-8D82-866020E8DE7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUIContent", "It's Still In Alpha\XUIContent\XUIContent.contentproj", "{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Profile|Any CPU = Profile|Any CPU
+		Profile|x86 = Profile|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Debug|x86.ActiveCfg = Debug|x86
 		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Debug|x86.Build.0 = Debug|x86
+		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Profile|Any CPU.ActiveCfg = Release|x86
+		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Profile|x86.ActiveCfg = Release|x86
+		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Profile|x86.Build.0 = Release|x86
+		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Release|Any CPU.ActiveCfg = Release|x86
 		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Release|x86.ActiveCfg = Release|x86
 		{CF1BB029-BF76-471A-A3DB-6F9733382D3D}.Release|x86.Build.0 = Release|x86
+		{7190FC61-F29C-40A8-8F4A-13CA34C8D88F}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{7190FC61-F29C-40A8-8F4A-13CA34C8D88F}.Debug|x86.ActiveCfg = Debug|x86
+		{7190FC61-F29C-40A8-8F4A-13CA34C8D88F}.Profile|Any CPU.ActiveCfg = Release|x86
+		{7190FC61-F29C-40A8-8F4A-13CA34C8D88F}.Profile|x86.ActiveCfg = Release|x86
+		{7190FC61-F29C-40A8-8F4A-13CA34C8D88F}.Release|Any CPU.ActiveCfg = Release|x86
 		{7190FC61-F29C-40A8-8F4A-13CA34C8D88F}.Release|x86.ActiveCfg = Release|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Debug|x86.ActiveCfg = Debug|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Debug|x86.Build.0 = Debug|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Profile|Any CPU.ActiveCfg = Profile|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Profile|x86.ActiveCfg = Profile|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Profile|x86.Build.0 = Profile|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Release|Any CPU.ActiveCfg = Release|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Release|x86.ActiveCfg = Release|x86
+		{2F953A14-0E2F-4670-8D82-866020E8DE7B}.Release|x86.Build.0 = Release|x86
+		{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}.Profile|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}.Profile|x86.ActiveCfg = Debug|Any CPU
+		{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

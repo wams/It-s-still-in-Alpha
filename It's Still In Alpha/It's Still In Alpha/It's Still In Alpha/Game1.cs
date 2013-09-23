@@ -1,24 +1,32 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+//-----------------------------------------------
+// XUI - Game1.cs
+// Copyright (C) Peter Reid. All rights reserved.
+//-----------------------------------------------
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
 using It_s_Still_In_Alpha.GameStates;
 using It_s_Still_In_Alpha.GameScreens;
+using It_s_Still_In_Alpha;
+
+
+// E_Layer
+public enum E_Layer
+{
+	UI = 0,
+
+	// etc ...
+
+	Count,
+};
 
 namespace It_s_Still_In_Alpha
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
@@ -47,6 +55,7 @@ namespace It_s_Still_In_Alpha
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
+            graphics.PreferMultiSampling = true;
 
             graphics.IsFullScreen = fullscreen;
 
@@ -76,9 +85,20 @@ namespace It_s_Still_In_Alpha
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+           _G.Game = this;
 
-            base.Initialize();
+		    // add core components
+		    Components.Add( new GamerServicesComponent( this ) );
+
+		    // add layers
+		    UiLayer = new UiLayer();
+		    _G.UI = UiLayer;
+
+		    // add other components
+		    _G.GameInput = new GameInput( (int)E_GameButton.Count, (int)E_GameAxis.Count );
+		    GameControls.Setup(); // initialise mappings
+
+		    base.Initialize();
         }
 
         /// <summary>
@@ -89,6 +109,18 @@ namespace It_s_Still_In_Alpha
         {
          
             // Create a new SpriteBatch, which can be used to draw textures.
+            Guide.NotificationPosition = NotificationPosition.BottomRight;
+
+		    // startup ui
+		    UiLayer.Startup( Content );
+
+		    // setup debug menu
+	    #if !RELEASE
+		    //_UI.SetupDebugMenu( null );
+	    #endif
+
+		    base.LoadContent();
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
@@ -98,10 +130,13 @@ namespace It_s_Still_In_Alpha
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
+       	protected override void UnloadContent()
+	    {
+		    // shutdown ui
+		    UiLayer.Shutdown();
+
+		    base.UnloadContent();
+	    }
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -111,8 +146,31 @@ namespace It_s_Still_In_Alpha
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+
+            IsRunningSlowly = gameTime.IsRunningSlowly;
+
+		    float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+		    // update input
+		    _G.GameInput.Update( frameTime );
+		
+	    #if !RELEASE
+		    Input input = _G.GameInput.GetInput( 0 );
+		
+		    if ( input.ButtonJustPressed( (int)E_UiButton.Quit ) )
+			    this.Exit();
+	    #endif
+
+	    #if !RELEASE
+		    // update debug menu
+		    //_UI.DebugMenuActive = _UI.DebugMenu.Update( frameTime );
+	    #endif
+
+		    // TODO - other stuff here ...
+
+		    // update ui
+		    UiLayer.Update( frameTime );
+
 
             // TODO: Add your update logic here
 
@@ -125,11 +183,26 @@ namespace It_s_Still_In_Alpha
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+           GraphicsDevice.Clear( Color.Black );
 
-            // TODO: Add your drawing code here
+		    float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            base.Draw(gameTime);
+		    // TODO - other stuff here ...
+
+		    // render ui
+		    UiLayer.Render( frameTime );
+
+	    #if !RELEASE
+		    // render debug menu
+		    //_UI.DebugMenu.Render();
+	    #endif
+
+		    base.Draw( gameTime );
         }
-    }
-}
+
+	    private UiLayer						UiLayer;
+
+	    public  bool						IsRunningSlowly;
+	//
+    };
+};

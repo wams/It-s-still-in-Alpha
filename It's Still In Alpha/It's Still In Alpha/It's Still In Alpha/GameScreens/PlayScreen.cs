@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,25 +19,15 @@ namespace It_s_Still_In_Alpha.GameScreens
     public class PlayScreen : BaseGameState
     {
         #region Map Region
-
         List<List<Tile>> tiles;
         List<List<char>> tileType;
 
         const int gridSize = 96;
         #endregion
-
         #region Variables Region
 
         Player playerShip;
         int counter;
-
-        #endregion
-
-        #region Timer Region
-
-        int moveTime = 0;
-        //at 60fps, 6 is 1 move every 10th of a second
-        int maxMoveTime = 0;
 
         #endregion
 
@@ -46,7 +37,6 @@ namespace It_s_Still_In_Alpha.GameScreens
             : base(game, manager)
         {
             tiles = new List<List<Tile>>();
-
             tileType = ReadFromFile("Level 1");
 
             for (int i = 0; i < GameRef.screenRectangle.Width/gridSize; i ++)
