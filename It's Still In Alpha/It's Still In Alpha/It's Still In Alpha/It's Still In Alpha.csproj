@@ -108,6 +108,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enemy.cs" />
+    <Compile Include="Game1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GameControls.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="UI\Layer.cs" />
+    <Compile Include="UI\Screens\Background.cs" />
+    <Compile Include="UI\Screens\LevelSelect.cs" />
+    <Compile Include="UI\Screens\Loading.cs" />
+    <Compile Include="UI\Screens\MainMenu.cs" />
+    <Compile Include="UI\Screens\Options.cs" />
+    <Compile Include="UI\Screens\Popup.cs" />
+    <Compile Include="UI\Screens\Start.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="GameScreens\PlayScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
@@ -118,7 +131,6 @@
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="Tile.cs" />
   </ItemGroup>

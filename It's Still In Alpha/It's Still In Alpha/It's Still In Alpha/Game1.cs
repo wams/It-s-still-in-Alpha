@@ -1,145 +1,142 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+//-----------------------------------------------
+// XUI - Game1.cs
+// Copyright (C) Peter Reid. All rights reserved.
+//-----------------------------------------------
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
-using It_s_Still_In_Alpha.GameStates;
-using It_s_Still_In_Alpha.GameScreens;
-
-namespace It_s_Still_In_Alpha
+// E_Layer
+public enum E_Layer
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
-    {
-        GraphicsDeviceManager graphics;
-        public SpriteBatch spriteBatch;
+	UI = 0,
 
-        public GameStateManager stateManager;
-        public TitleScreen titleScreen;
-        public PlayScreen playScreen;
+	// etc ...
 
-        private GameInput GameInput;
+	Count,
+};
 
-        #region Screen Properties
+// class Game1
+public class Game1 : Game
+{
+	// Game1
+	public Game1()
+		: base()
+	{
+		Graphics = new GraphicsDeviceManager( this );
 
-        const int screenWidth = 96 * 20;
-        const int screenHeight = 96 * 12;
+		Graphics.PreferredBackBufferWidth = 1280;
+		Graphics.PreferredBackBufferHeight = 720;
 
-        bool fullscreen = false;
+		Graphics.PreferMultiSampling = true;
 
-        public readonly Rectangle screenRectangle;
+	#if PROFILE
+		IsFixedTimeStep = false;
+		Graphics.SynchronizeWithVerticalRetrace = false;
+	#endif
 
-        public SpriteFont titleFont;
-        public SpriteFont subtitleFont;
+		Content.RootDirectory = "Content";
+	}
 
-        #endregion
+	// Initialize
+	protected override void Initialize()
+	{
+		_G.Game = this;
 
-        public Game1()
-        {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = screenWidth;
-            graphics.PreferredBackBufferHeight = screenHeight;
+		// add core components
+		Components.Add( new GamerServicesComponent( this ) );
 
-            graphics.IsFullScreen = fullscreen;
+		// add layers
+		UiLayer = new UiLayer();
+		_G.UI = UiLayer;
 
-            screenRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
+		// add other components
+		_G.GameInput = new GameInput( (int)E_GameButton.Count, (int)E_GameAxis.Count );
+		GameControls.Setup(); // initialise mappings
 
-            Content.RootDirectory = "Content";
+		base.Initialize();
+	}
 
-            Components.Add(new InputHandler(this));
+	// LoadContent
+	protected override void LoadContent()
+	{
+		Guide.NotificationPosition = NotificationPosition.BottomRight;
 
-            stateManager = new GameStateManager(this);
-            Components.Add(stateManager);
+		// startup ui
+		UiLayer.Startup( Content );
 
-            titleScreen = new TitleScreen(this, stateManager);
-            playScreen = new PlayScreen(this, stateManager);
+		// setup debug menu
+	#if !RELEASE
+		_UI.SetupDebugMenu( null );
+	#endif
 
-            stateManager.ChangeState(titleScreen);
-        }
+		base.LoadContent();
+	}
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-        protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
+	// UnloadContent
+	protected override void UnloadContent()
+	{
+		// shutdown ui
+		UiLayer.Shutdown();
 
-            base.Initialize();
-        }
+		base.UnloadContent();
+	}
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
-        {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+	// Update
+	protected override void Update( GameTime gameTime )
+	{
+		IsRunningSlowly = gameTime.IsRunningSlowly;
 
-            // TODO: use this.Content to load your game content here
+		float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // create the GameInput - UI depends on this
-            GameInput = new GameInput((int)E_UiButton.Count, (int)E_UiAxis.Count);
+		// update input
+		_G.GameInput.Update( frameTime );
+		
+	#if !RELEASE
+		Input input = _G.GameInput.GetInput( 0 );
+		
+		if ( input.ButtonJustPressed( (int)E_UiButton.Quit ) )
+			this.Exit();
+	#endif
 
-            // setup the UI's input mappings
-            _UI.SetupControls(GameInput);
+	#if !RELEASE
+		// update debug menu
+		_UI.DebugMenuActive = _UI.DebugMenu.Update( frameTime );
+	#endif
 
-            // setup the UI with default settings
-            _UI.Startup(this, GameInput);
+		// TODO - other stuff here ...
 
-            // add the initial UI screen
-            //_UI.Screen.AddScreen(new UI.Screen());
-        }
+		// update ui
+		UiLayer.Update( frameTime );
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-            _UI.Shutdown();
-        }
+		base.Update( gameTime );
+	}
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+	// Draw
+	protected override void Draw( GameTime gameTime )
+	{
+		GraphicsDevice.Clear( Color.Black );
 
-            // TODO: Add your update logic here
+		float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            base.Update(gameTime);
-        }
+		// TODO - other stuff here ...
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+		// render ui
+		UiLayer.Render( frameTime );
 
-            // TODO: Add your drawing code here
+	#if !RELEASE
+		// render debug menu
+		_UI.DebugMenu.Render();
+	#endif
 
-            base.Draw(gameTime);
-        }
-    }
-}
+		base.Draw( gameTime );
+	}
+
+	//
+	private GraphicsDeviceManager		Graphics;
+	private UiLayer						UiLayer;
+
+	public  bool						IsRunningSlowly;
+	//
+};
