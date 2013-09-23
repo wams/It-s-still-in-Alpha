@@ -42,7 +42,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Backgrounds\" />
     <Folder Include="GUI\" />
     <Folder Include="Maps\" />
   </ItemGroup>
@@ -109,6 +108,13 @@
   <ItemGroup>
     <Compile Include="Tiles\wall_2x2_e1.png">
       <Name>wall_2x2_e1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Backgrounds\menu_background.png">
+      <Name>menu_background</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

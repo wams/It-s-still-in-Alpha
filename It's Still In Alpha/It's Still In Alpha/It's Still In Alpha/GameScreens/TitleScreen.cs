@@ -28,6 +28,7 @@ namespace It_s_Still_In_Alpha.GameScreens
         #region XNA Functions
         private Texture2D orbImage;
         private Texture2D shipImage;
+        private Texture2D menuBackground;
         protected override void LoadContent()
         {
             ContentManager Content = GameRef.Content;
@@ -35,6 +36,8 @@ namespace It_s_Still_In_Alpha.GameScreens
             GameRef.subtitleFont = Content.Load<SpriteFont>("Fonts/subtitleFont");
             orbImage = Content.Load<Texture2D>("Tiles/wall_2x2_e1");
             shipImage = Content.Load<Texture2D>("Ships/player_ship");
+            menuBackground = Content.Load<Texture2D>("Backgrounds/menu_background");
+
             base.LoadContent();
         }
 
@@ -57,15 +60,16 @@ namespace It_s_Still_In_Alpha.GameScreens
         {
             GameRef.spriteBatch.Begin();
             GameRef.spriteBatch.GraphicsDevice.Clear(Color.Black);
-            DrawText();
             DrawImage();
+            DrawText();
             base.Draw(gameTime);
 
             GameRef.spriteBatch.End();
         }
         public void DrawImage()
         {
-            GameRef.spriteBatch.Draw(orbImage, new Vector2(GameRef.screenRectangle.Center.X + 500, GameRef.screenRectangle.Center.Y - 300), Color.White);
+            GameRef.spriteBatch.Draw(menuBackground, new Vector2(0, 0), Color.White);
+            //GameRef.spriteBatch.Draw(orbImage, new Vector2(GameRef.screenRectangle.Center.X + 500, GameRef.screenRectangle.Center.Y - 300), Color.White);
             GameRef.spriteBatch.Draw(shipImage, new Vector2(GameRef.screenRectangle.Center.X - 490, GameRef.screenRectangle.Center.Y - 250), Color.White);
         }
 
