@@ -69,6 +69,24 @@ namespace It_s_Still_In_Alpha
 
         public override void Update(GameTime gameTime)
         {
+            switch (Direction)
+            {
+                case Facing.Up:
+                    shipImageName = "player_ship_up";
+                    break;
+                case Facing.Down:
+                    shipImageName = "player_ship_down";
+                    break;
+                case Facing.Left:
+                    shipImageName = "player_ship_left";
+                    break;
+                case Facing.Right:
+                    shipImageName = "player_ship_right";
+                    break;
+
+            }
+            LoadContent();
+
             base.Update(gameTime);
         }
 
@@ -78,6 +96,8 @@ namespace It_s_Still_In_Alpha
                 score.ToString(),
                 new Vector2(GameRef.screenRectangle.Center.X + 650, GameRef.screenRectangle.Center.Y + 400),
                 Color.Yellow);
+
+            //GameRef.spriteBatch.Draw(shipImage, Position*SourceSize, Color.White);
             base.Draw(spriteBatch);
         }
 

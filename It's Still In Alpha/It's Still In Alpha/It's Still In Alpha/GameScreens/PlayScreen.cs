@@ -239,12 +239,20 @@ namespace It_s_Still_In_Alpha.GameScreens
                             tile.SourceRect = new Rectangle(tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height/2, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height/2);
                             break;
                         case 'g':
-                            tile.LoadContent("wall_2x1_astroidBelt1");
+                            tile.LoadContent("wall_1x2");
                             tile.SourceRect = new Rectangle(0, 0, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height);
                             break;
                         case 'h':
-                            tile.LoadContent("wall_2x1_astroidBelt1");
+                            tile.LoadContent("wall_1x2");
                             tile.SourceRect = new Rectangle(tile.tileImage.Bounds.Width/2, 0, tile.tileImage.Bounds.Width/2, tile.tileImage.Bounds.Height);
+                            break;
+                        case 'i':
+                            tile.LoadContent("wall_2x1");
+                            tile.SourceRect = new Rectangle(0, 0, tile.tileImage.Bounds.Width, tile.tileImage.Bounds.Height/2);
+                            break;
+                        case 'j':
+                            tile.LoadContent("wall_2x1");
+                            tile.SourceRect = new Rectangle(0, tile.tileImage.Bounds.Height/2, tile.tileImage.Bounds.Width, tile.tileImage.Bounds.Height/2);
                             break;
                         default:
                             break;

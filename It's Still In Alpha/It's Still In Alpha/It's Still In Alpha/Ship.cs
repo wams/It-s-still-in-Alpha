@@ -36,7 +36,7 @@ namespace It_s_Still_In_Alpha
         protected bool has_moved = false;
         public double last_move_time = 0.0; 
 
-        Texture2D shipImage;
+        protected Texture2D shipImage;
         protected string shipImageName;
         Dictionary<string, List<Rectangle>> Frames;
         string currentAnimation;
